@@ -32,8 +32,7 @@ public class MyProgram {
                     }
                 }
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 Console.WriteLine("Error: " + e.Message);
             }
 
@@ -45,23 +44,19 @@ public class MyProgram {
 }
 
 // Port of the Java getData class to C#.
-public class GetData
-{
+public class GetData {
     private readonly string chooseURL;
     private readonly string recievePart;
 
-    public GetData(string pickURL, string parameter)
-    {
+    public GetData(string pickURL, string parameter) {
         chooseURL = pickURL;
         recievePart = parameter;
     }
 
-    public async Task<string> GetDataFromSiteAsync()
-    {
+    public async Task<string> GetDataFromSiteAsync() {
         string recievedData = string.Empty;
 
-        try
-        {
+        try {
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", "Browser_Name_CMDLineBrowser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
@@ -72,31 +67,28 @@ public class GetData
             // read as string even if not successful so we can inspect
             recievedData = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                if ((int)response.StatusCode == 403)
-                    return "Http 403, request rejected (Error Code: yg7f63g)";
+            if (!response.IsSuccessStatusCode) {
+                if ((int)response.StatusCode == 403) {
+                    return "Http 403, request rejected (Error Detected as bot/blocked traffic";
+				}
 
-                if (string.IsNullOrEmpty(recievedData))
-                    return "Error loading website (Error Code: d3y7g3)";
+                if (string.IsNullOrEmpty(recievedData)) {
+                    return "Error loading website (Error No Content Recieved From Site)";
+				}
 
                 return "An error has occured, check the URL and try again (Error Code: v7d332)";
             }
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Console.WriteLine("Looks bad: " + e);
             var eString = e.ToString();
-            if (eString.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1)
-            {
+            if (eString.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1) {
                 return "Http 403, request rejected (Error Code: yg7f63g)";
             }
-            else if (string.IsNullOrEmpty(recievedData))
-            {
+            else if (string.IsNullOrEmpty(recievedData)) {
                 return "Error loading website (Error Code: d3y7g3)";
             }
-            else
-            {
+            else {
                 return "An error has occured, check the URL and try again (Error Code: v7d332)";
             }
         }
@@ -105,8 +97,7 @@ public class GetData
         var recievedNew = new StringBuilder();
         string work = recievedData;
 
-        while (true)
-        {
+        while (true) {
             int start = work.IndexOf("<p", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
 
@@ -116,8 +107,7 @@ public class GetData
 
             work = work.Substring(gt + 1);
             int endP = work.IndexOf("</p", StringComparison.OrdinalIgnoreCase);
-            if (endP == -1)
-            {
+            if (endP == -1) {
                 // take remainder
                 recievedNew.Append(work);
                 break;
@@ -136,16 +126,13 @@ public class GetData
         // remove any remaining tags
         var sb = new StringBuilder();
         bool inTag = false;
-        for (int i = 0; i < cleaned.Length; i++)
-        {
+        for (int i = 0; i < cleaned.Length; i++) {
             char c = cleaned[i];
-            if (!inTag)
-            {
+            if (!inTag) {
                 if (c == '<') { inTag = true; if (sb.Length > 0 && !char.IsWhiteSpace(sb[sb.Length - 1])) sb.Append(' '); }
                 else sb.Append(c);
             }
-            else
-            {
+            else {
                 if (c == '>') inTag = false;
             }
         }
