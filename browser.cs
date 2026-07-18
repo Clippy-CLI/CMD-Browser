@@ -1,3 +1,4 @@
+//Note that this program was originally made in java and was converted to c# later
 using System;
 using System.Net.Http;
 using System.Text;
