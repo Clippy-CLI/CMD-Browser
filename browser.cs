@@ -18,10 +18,10 @@ public class MyProgram {
             string input = Console.ReadLine();
             
             
-            if (input.Equals("prev")) {
+            if (input.Equals("previous")) {
                 input = storeInput;
             }
-            //allows you to type prev and bring up previous input
+            //allows you to type previous and bring up previous input
 
 
             storeInput = (input);
