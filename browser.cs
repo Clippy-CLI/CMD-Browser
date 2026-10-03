@@ -18,6 +18,8 @@ public class MyProgram {
             string input = Console.ReadLine();
             
             //yes the commands are only 1 line and yes I'm still using {} as it looks pretty
+            //also i dont think it needs to be if/else because no two commands should be the same
+
             if (input.Equals("previous")) {
                 input = storeInput;
             }
@@ -26,6 +28,31 @@ public class MyProgram {
             if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) {
                 break;
             }
+
+            if (input.Equals("common")) {
+                //prints some common webpages
+                Console.WriteLine("Common Webpages:");
+
+                Console.WriteLine("Wikipedia: https://en.wikipedia.org/wiki/(page)");
+                Console.WriteLine("Simple wikipeida: https://simple.wikipedia.org/wiki/(page)");
+                Console.WriteLine("Project Gutenberg (Ebooks): https://www.gutenberg.org/cache/epub/(bookcode)/pg(bookcode)-images.html");
+                //add more later
+            }
+
+            if (input.Substring(0,8).equals("linkscan")) {
+                Console.WriteLine("Sorry, not implemented yet");
+                //essentially, will scan links of the webpage put in after linkscan
+                //just create more modified classes of getData, like how I am making one for image urls, also links i guess
+            }
+
+            if (input.equals("idk")) {
+                Console.WriteLine("Sorry, not implemented yet");
+            }
+
+            /* if (input.Equals("help")) {
+                useful command but add later when I know what to put
+            }
+            */
 
             //after here add more commands, or if anything needs to be done before try
 
