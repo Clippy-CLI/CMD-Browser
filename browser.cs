@@ -36,7 +36,7 @@ public class MyProgram {
                 Console.WriteLine("Wikipedia: https://en.wikipedia.org/wiki/(page)");
                 Console.WriteLine("Simple wikipeida: https://simple.wikipedia.org/wiki/(page)");
                 Console.WriteLine("Project Gutenberg (Ebooks): https://www.gutenberg.org/cache/epub/(bookcode)/pg(bookcode)-images.html");
-                //add more later
+                //add more later, especially when links are available.
             }
 
             if (input.Substring(0,8).equals("linkscan")) {
