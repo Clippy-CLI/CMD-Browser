@@ -17,16 +17,19 @@ public class MyProgram {
             Console.Write("Enter URL: ");
             string input = Console.ReadLine();
             
-            
+            //yes the commands are only 1 line and yes I'm still using {} as it looks pretty
             if (input.Equals("previous")) {
                 input = storeInput;
             }
             //allows you to type previous and bring up previous input
+            
+            if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) {
+                break;
+            }
 
+            //after here add more commands, or if anything needs to be done before try
 
             storeInput = (input);
-            if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) break;
-
             try {
                 var getter = new GetData(input, "");
                 string result = await getter.GetDataFromSiteAsync();
@@ -86,7 +89,7 @@ public class GetData {
                     return "Error loading website (Error No Content Recieved From Site)";
 				}
 
-                return "An error has occured, check the URL and try again (Error Code: v7d332)";
+                return "An error has occured, check the URL and try again (Error Site not found";
             }
         }
         catch (Exception e) {
@@ -107,6 +110,21 @@ public class GetData {
         var recievedNew = new StringBuilder();
         string work = recievedData;
 
+        /*easiest way of recieving images will likely add in here plan is to (without changing work variable)
+        go in and get all of the image src (to account for multiple tags, maybe just also check for http or something)
+        basically then save all those urls for later in an array or something
+
+        then as an initial experiment, just build the png/jpeg (easiest/common) to ascii converter (likely as another method
+        so not in the GetData or main) then just print them all at the end at first.
+
+        After which, I think easiest would be to somehow make a marker or index system of where the images are and then
+        add a simple check while it is getting rid of all the "junk" html to periodically (like after a set of <p> tags
+        or something) to print the image
+
+        Also just a note to self: i did check the original java code, and yes it did only grab anything in <p> tags. the 
+        improvement was that it could grab p tags from anywhere in the html not just the main areas
+
+        */
         while (true) {
             int start = work.IndexOf("<p", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
