@@ -8,13 +8,23 @@ using System.Text.RegularExpressions;
 
 public class MyProgram {
     public static async Task Main(string[] args) {
-        Console.WriteLine("Welcome to (Name of your browser) browser!");
+        Console.WriteLine("Welcome to CMD browser!");
         Console.WriteLine("Type exit to quit");
         Console.WriteLine();
-
+        string storeInput = ("");
+        //create var to store the input for later
         while (true) {
             Console.Write("Enter URL: ");
             string input = Console.ReadLine();
+            
+            
+            if (input.Equals("prev")) {
+                input = storeInput;
+            }
+            //allows you to type prev and bring up previous input
+
+
+            storeInput = (input);
             if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) break;
 
             try {
