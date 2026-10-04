@@ -528,6 +528,9 @@ public class GetImageLinks {
 
 
         //currently this returns a string, may change it to img array of objects
+        //actually, dont even need a method could jsut convert all of the images in the array right here while converting
+        //them to a giant string using a mix of stuff like \n to divide them. Maybe do them individually (create each image
+        //to a string in a string array which then print out each part of the array)
         string decoded = ("");
         for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
             //for each string in linkArray do something
@@ -537,7 +540,7 @@ public class GetImageLinks {
             //add a random symbol to separate each link (will separate them in a different method)
             //surely no image is using that, right? i literally just picked a really random symbol idk
         }
-        
+    
         return decoded;
     }
 }
