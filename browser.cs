@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Text.RegularExpressions;
 
+using System.Collections.Generic;
+//arraylist for c#, currently used for gathering links/images
+
 public class MyProgram {
     public static async Task Main(string[] args) {
         Console.WriteLine("Welcome to CMD browser!");
@@ -201,6 +204,12 @@ public class GetData {
 public class GetLinks {
     private readonly string chooseURL;
     private readonly string recievePart;
+    //somewhere in here, we need an array to store the links
+    List<String> linkArray = new List<String>();
+    //linkArray.Add("(url)");
+    //should be uppercase
+
+    
 
     public GetLinks(string pickURL, string parameter) {
         chooseURL = pickURL;
@@ -266,15 +275,30 @@ public class GetLinks {
         improvement was that it could grab p tags from anywhere in the html not just the main areas
 
         */
+
+        //THIS is what needs to be rewritten, both for the getlinks as well as images, in order to extract links.
+        //also jsut unrelated note about images, some can be like /images/image.png, so if no full url, just append url to
+        //the front of it and it hopefully works. Will need a fallback/error handling for this as it is probably risky
         while (true) {
+
+            //its going to need to scan for href or something
+            //also further note, oftentimes the image is src="url"
+
+            //put like, href here
             int start = work.IndexOf("<p", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
 
             work = work.Substring(start);
             int gt = work.IndexOf('>');
+            //this would instead be like, the second " because it would say like href="(url)"
             if (gt == -1) break; // malformed
 
             work = work.Substring(gt + 1);
+            //in this stage, would have the first/whatever number url, plus everything after it
+
+
+            //now down here, just instead of adding that <p> </p> to the output and removing it, just add the link to the
+            //string array and remove the link + href from the sccanning. repeat until all href links are indexed.
             int endP = work.IndexOf("</p", StringComparison.OrdinalIgnoreCase);
             if (endP == -1) {
                 // take remainder
@@ -288,11 +312,18 @@ public class GetLinks {
             if (endPtag == -1) break;
 
             work = work.Substring(endPtag + 1);
+
         }
+
+        //now down here we should have all of the links indexed, and we shouldn't also need to clean them
+        //thus just throw away anything leftover and just return a string of all the links put together, plus
+        //something like the \n to mean new line, so it prints out all the links in a nice list
 
         string cleaned = recievedNew.ToString();
 
         // remove any remaining tags
+
+        //i think this is further cleaning, but idk yet what to do with this for images/links
         var sb = new StringBuilder();
         bool inTag = false;
         for (int i = 0; i < cleaned.Length; i++) {
