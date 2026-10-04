@@ -343,13 +343,14 @@ public class GetLinks {
         //something like the \n to mean new line, so it prints out all the links in a nice list
         
 
-        //recievedNew is no longer defined here for the getLinks, so instead jsut take the array of links and do stuff
-        string cleaned = recievedNew.ToString();
+        //recievedNew is no longer defined here for the getLinks, so instead just take the array of links and do stuff
 
+
+
+        //string cleaned = recievedNew.ToString();
         // remove any remaining tags
-
         //i think this is further cleaning, but idk yet what to do with this for images/links
-        var sb = new StringBuilder();
+        /*var sb = new StringBuilder();
         bool inTag = false;
         for (int i = 0; i < cleaned.Length; i++) {
             char c = cleaned[i];
@@ -361,10 +362,24 @@ public class GetLinks {
                 if (c == '>') inTag = false;
             }
         }
+        I dont think any of this is needed
+        */
 
-        string decoded = WebUtility.HtmlDecode(sb.ToString());
+
+
+        string decoded = ("");
+        for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
+            //for each string in linkArray do something
+            decoded.Append(linkArray[indexCount]);
+            //add link to thing
+            decoded.Append("\n");
+            //add a line break after every link
+        }
+        
+        //WebUtility.HtmlDecode(sb.ToString());
         // collapse whitespace and trim
-        decoded = Regex.Replace(decoded, "\\s+", " ").Trim();
+        //decoded = Regex.Replace(decoded, "\\s+", " ").Trim();
+        //probably pointless
 
         return decoded;
     }
