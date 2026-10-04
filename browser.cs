@@ -45,11 +45,6 @@ public class MyProgram {
 
             if (input.Substring(0,8).equals("linkscan")) {
                 //essentially, will scan links of the webpage put in after linkscan
-                //just create more modified classes of getData, like how I am making one for image urls, also links i guess
-                //although actually, getImages will be a modified getLinks
-
-                //basically here, just put a modified version of the like 20 lines below all the commands, and 
-                //also trim the input to just the url so that it works for the getLinks which needs a url as a parameter
                         try {
                             //substring is 9 as command is linkscan (space) url
                             var getter = new GetLinks(input.Substring(9), "");
