@@ -440,26 +440,6 @@ public class GetImageLinks {
             //its going to need to scan for href or something
             //also further note, oftentimes the image is src="url"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //THIS IS WHERE WE GET IMAGE LINKS
             //THIS IS THE ONLY PART LEFT TO BASCIALLY CHANGE THE INDEXED LINKS FROM HREF TO SRC ONES
             //put like, src here
@@ -496,7 +476,25 @@ public class GetImageLinks {
 
 
             //now to determine if it is an image using the above mentioned file formats
-            linkArray.Add(work.Substring(0, endP));
+            string linkToAdd = work.Substring(0, endP);
+            //just declaring it as a simpler variable to reuse
+            string linkToAddExtension = linkToAdd.Substring(linkToAdd.Length - 4);
+            //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
+            if (linkToAddExtension.Equals(".png")) {
+                linkArray.Add(linkToAdd);
+
+            //why use || when you can use else if?
+            } else if (linkToAddExtension.Equals("jpeg")) {
+                linkArray.Add(linkToAdd);
+            } else if (linkToAddExtension.Equals(".jpg")) {
+                linkArray.Add(linkToAdd);
+            } else if (linkToAddExtension.Equals(".svg")) {
+                linkArray.Add(linkToAdd);
+            } else if (linkToAddExtension.Equals("webp")) {
+                linkArray.Add(linkToAdd);
+            }
+
+            
 
 
             //also as a dumb note to myself, no the link is not removed (same probably for href maybe <P>)
