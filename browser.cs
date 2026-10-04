@@ -65,6 +65,7 @@ public class MyProgram {
                         } catch (Exception e) {
                             Console.WriteLine("Error: " + e.Message);
                         }
+                        Console.WriteLine(result);
             }
 
             if (input.equals("idk")) {
@@ -529,6 +530,7 @@ public class GetImageLinks {
         //actually, dont even need a method could jsut convert all of the images in the array right here while converting
         //them to a giant string using a mix of stuff like \n to divide them. Maybe do them individually (create each image
         //to a string in a string array which then print out each part of the array)
+        //next to do, linkArray has to get the images to an array of object images 
         string decoded = ("");
         for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
             //for each string in linkArray do something
