@@ -47,6 +47,10 @@ public class MyProgram {
                 Console.WriteLine("Sorry, not implemented yet");
                 //essentially, will scan links of the webpage put in after linkscan
                 //just create more modified classes of getData, like how I am making one for image urls, also links i guess
+                //although actually, getImages will be a modified getLinks
+
+                //basically here, just put a modified version of the like 20 lines below all the commands, and 
+                //also trim the input to just the url so that it works for the getLinks which needs a url as a parameter
             }
 
             if (input.equals("idk")) {
@@ -284,41 +288,62 @@ public class GetLinks {
             //its going to need to scan for href or something
             //also further note, oftentimes the image is src="url"
 
+
+
+
             //put like, href here
-            int start = work.IndexOf("<p", StringComparison.OrdinalIgnoreCase);
+            int start = work.IndexOf("href", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
 
             work = work.Substring(start);
-            int gt = work.IndexOf('>');
-            //this would instead be like, the second " because it would say like href="(url)"
+            int gt = work.IndexOf('"');
+            //first " in the link, so it does get removed
+
             if (gt == -1) break; // malformed
 
             work = work.Substring(gt + 1);
             //in this stage, would have the first/whatever number url, plus everything after it
 
 
+
             //now down here, just instead of adding that <p> </p> to the output and removing it, just add the link to the
             //string array and remove the link + href from the sccanning. repeat until all href links are indexed.
-            int endP = work.IndexOf("</p", StringComparison.OrdinalIgnoreCase);
+
+            //now down here there is only one " which is the end of the link
+            int endP = work.IndexOf("\"", StringComparison.OrdinalIgnoreCase);
             if (endP == -1) {
                 // take remainder
-                recievedNew.Append(work);
+              
                 break;
             }
 
-            recievedNew.Append(work.Substring(0, endP));
+            //replace this with add the link to the array
+            //currently 0 (start of URL) to endP
+            linkArray.Add(work.Substring(0, endP));
+            //nice link is added to array for later
 
+
+            /*
             int endPtag = work.IndexOf('>', endP);
             if (endPtag == -1) break;
 
             work = work.Substring(endPtag + 1);
+
+            pretty certain all of this can be removed as it will just get filtered out anyway on next run of the href scan
+
+            before basically string would be like IMPORTANT</p>gguuiwfe
+            then after getting needed stuff it would be </p>uygsiyfseg
+            so it wasnt needed to filter it to  iwadgydaw i guess in hindsight
+            */
 
         }
 
         //now down here we should have all of the links indexed, and we shouldn't also need to clean them
         //thus just throw away anything leftover and just return a string of all the links put together, plus
         //something like the \n to mean new line, so it prints out all the links in a nice list
+        
 
+        //recievedNew is no longer defined here for the getLinks, so instead jsut take the array of links and do stuff
         string cleaned = recievedNew.ToString();
 
         // remove any remaining tags
