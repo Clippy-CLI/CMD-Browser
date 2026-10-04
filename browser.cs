@@ -278,6 +278,163 @@ public class GetLinks {
         var recievedNew = new StringBuilder();
         string work = recievedData;
 
+        while (true) {
+
+            //its going to need to scan for href or something
+            //also further note, oftentimes the image is src="url"
+
+
+
+
+            //put like, href here
+            int start = work.IndexOf("href", StringComparison.OrdinalIgnoreCase);
+            if (start == -1) break;
+
+            work = work.Substring(start);
+            int gt = work.IndexOf('"');
+            //first " in the link, so it does get removed
+
+            if (gt == -1) break; // malformed
+
+            work = work.Substring(gt + 1);
+            //in this stage, would have the first/whatever number url, plus everything after it
+
+
+
+            //now down here, just instead of adding that <p> </p> to the output and removing it, just add the link to the
+            //string array and remove the link + href from the sccanning. repeat until all href links are indexed.
+
+            //now down here there is only one " which is the end of the link
+            int endP = work.IndexOf("\"", StringComparison.OrdinalIgnoreCase);
+            if (endP == -1) {
+                // take remainder
+              
+                break;
+            }
+
+            //replace this with add the link to the array
+            //currently 0 (start of URL) to endP
+            linkArray.Add(work.Substring(0, endP));
+            //nice link is added to array for later
+
+
+
+        }
+
+
+
+
+
+
+        string decoded = ("");
+        for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
+            //for each string in linkArray do something
+            decoded.Append(linkArray[indexCount]);
+            //add link to thing
+            decoded.Append("\n");
+            //add a line break after every link
+        }
+        
+        return decoded;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//keeping this separate for now
+public class GetImageLinks {
+    private readonly string chooseURL;
+    private readonly string recievePart;
+    //somewhere in here, we need an array to store the links
+    //for images though, due to variable scope we could just keep linkArray
+    List<String> linkArray = new List<String>();
+    //linkArray.Add("(url)");
+    //should be uppercase
+
+    
+
+    public GetImageLinks(string pickURL, string parameter) {
+        chooseURL = pickURL;
+        recievePart = parameter;
+    }
+
+    public async Task<string> GetImageLinksFromSiteAsync() {
+        string recievedData = string.Empty;
+
+        try {
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "Browser_Name_CMDLineBrowser");
+            client.DefaultRequestHeaders.Add("Accept", "text/html");
+            client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
+            client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+
+            var response = await client.GetAsync(chooseURL);
+            // read as string even if not successful so we can inspect
+            recievedData = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode) {
+                if ((int)response.StatusCode == 403) {
+                    return "Http 403, request rejected (Error Detected as bot/blocked traffic";
+				}
+
+                if (string.IsNullOrEmpty(recievedData)) {
+                    return "Error loading website (Error No Content Recieved From Site)";
+				}
+
+                return "An error has occured, check the URL and try again (Error Site not found";
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine("Looks bad: " + e);
+            var eString = e.ToString();
+            if (eString.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1) {
+                return "Http 403, request rejected (Error Code: yg7f63g)";
+            }
+            else if (string.IsNullOrEmpty(recievedData)) {
+                return "Error loading website (Error Code: d3y7g3)";
+            }
+            else {
+                return "An error has occured, check the URL and try again (Error Code: v7d332)";
+            }
+        }
+
+        // now filter the html into something more readable: extract <p> contents
+        var recievedNew = new StringBuilder();
+        string work = recievedData;
+
         /*easiest way of recieving images will likely add in here plan is to (without changing work variable)
         go in and get all of the image src (to account for multiple tags, maybe just also check for http or something)
         basically then save all those urls for later in an array or something
@@ -294,7 +451,7 @@ public class GetLinks {
 
         */
 
-        //THIS is what needs to be rewritten, both for the getlinks as well as images, in order to extract links.
+        //THIS is what needs to be rewritten, both for the getimagelinks as well as images, in order to extract links.
         //also jsut unrelated note about images, some can be like /images/image.png, so if no full url, just append url to
         //the front of it and it hopefully works. Will need a fallback/error handling for this as it is probably risky
         while (true) {
@@ -305,7 +462,25 @@ public class GetLinks {
 
 
 
-            //put like, href here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //THIS IS WHERE WE GET IMAGE LINKS
+            //put like, src here
             int start = work.IndexOf("href", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
 
@@ -357,8 +532,7 @@ public class GetLinks {
         //something like the \n to mean new line, so it prints out all the links in a nice list
         
 
-        //recievedNew is no longer defined here for the getLinks, so instead just take the array of links and do stuff
-
+        
 
 
         //string cleaned = recievedNew.ToString();
@@ -381,6 +555,24 @@ public class GetLinks {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //REWRITE THIS PART FOR RETURNING IMAGES/LINKS
         string decoded = ("");
         for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
             //for each string in linkArray do something
@@ -397,4 +589,22 @@ public class GetLinks {
 
         return decoded;
     }
+}
+
+
+
+public class MakeImages {
+    //make images from said links by going through whatever i decide to have put in here
+    //basically I think they will essentially be strings where you go through row by row, converting each pixel to a character
+    //then at the end of the row just append \n and continue with the next row, thus making that string (kind of) a 2d grid of
+    //characters that forms a picture, whcih can then be printed. Will have to figure out how to/where to put images in
+
+}
+
+public class GetImages {
+    //here, basically have a returned array or string from image links, then just do the thing with http and such
+    //then basically just grab the image and, store it as an object/variable or something in an array?
+
+
+    //then also return an array of image objects, maybe pass it to makeimages method
 }
