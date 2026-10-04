@@ -489,8 +489,6 @@ public class GetImageLinks {
                 linkArray.Add(linkToAdd);
             } else if (linkToAddExtension.Equals(".jpg")) {
                 linkArray.Add(linkToAdd);
-            } else if (linkToAddExtension.Equals(".svg")) {
-                linkArray.Add(linkToAdd);
             } else if (linkToAddExtension.Equals("webp")) {
                 linkArray.Add(linkToAdd);
             }
