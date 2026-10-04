@@ -374,6 +374,7 @@ public class GetLinks {
 
 
 
+
 //keeping this separate for now
 public class GetImageLinks {
     private readonly string chooseURL;
@@ -434,26 +435,6 @@ public class GetImageLinks {
         // now filter the html into something more readable: extract <p> contents
         var recievedNew = new StringBuilder();
         string work = recievedData;
-
-        /*easiest way of recieving images will likely add in here plan is to (without changing work variable)
-        go in and get all of the image src (to account for multiple tags, maybe just also check for http or something)
-        basically then save all those urls for later in an array or something
-
-        then as an initial experiment, just build the png/jpeg (easiest/common) to ascii converter (likely as another method
-        so not in the GetData or main) then just print them all at the end at first.
-
-        After which, I think easiest would be to somehow make a marker or index system of where the images are and then
-        add a simple check while it is getting rid of all the "junk" html to periodically (like after a set of <p> tags
-        or something) to print the image
-
-        Also just a note to self: i did check the original java code, and yes it did only grab anything in <p> tags. the 
-        improvement was that it could grab p tags from anywhere in the html not just the main areas
-
-        */
-
-        //THIS is what needs to be rewritten, both for the getimagelinks as well as images, in order to extract links.
-        //also jsut unrelated note about images, some can be like /images/image.png, so if no full url, just append url to
-        //the front of it and it hopefully works. Will need a fallback/error handling for this as it is probably risky
         while (true) {
 
             //its going to need to scan for href or something
@@ -480,13 +461,14 @@ public class GetImageLinks {
 
 
             //THIS IS WHERE WE GET IMAGE LINKS
+            //THIS IS THE ONLY PART LEFT TO BASCIALLY CHANGE THE INDEXED LINKS FROM HREF TO SRC ONES
             //put like, src here
-            int start = work.IndexOf("href", StringComparison.OrdinalIgnoreCase);
+            int start = work.IndexOf("src", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
 
             work = work.Substring(start);
-            int gt = work.IndexOf('"');
-            //first " in the link, so it does get removed
+            int gt = work.IndexOf("\"");
+            //first " in the src, so it does get removed
 
             if (gt == -1) break; // malformed
 
@@ -506,52 +488,21 @@ public class GetImageLinks {
                 break;
             }
 
-            //replace this with add the link to the array
-            //currently 0 (start of URL) to endP
+
+            //uses same thing as href and just grabs a raw link here ("image.png", "script.js", etc)
+            //so actually, we can reuse it but just save the source urls only if it ends in like .jpg .png .jpeg .webp .svg, etc
+            //this allows us to bascially completely re-use the href, and just filter stuff out at a later level
+
+
+
+            //now to determine if it is an image using the above mentioned file formats
             linkArray.Add(work.Substring(0, endP));
-            //nice link is added to array for later
 
 
-            /*
-            int endPtag = work.IndexOf('>', endP);
-            if (endPtag == -1) break;
-
-            work = work.Substring(endPtag + 1);
-
-            pretty certain all of this can be removed as it will just get filtered out anyway on next run of the href scan
-
-            before basically string would be like IMPORTANT</p>gguuiwfe
-            then after getting needed stuff it would be </p>uygsiyfseg
-            so it wasnt needed to filter it to  iwadgydaw i guess in hindsight
-            */
-
+            //also as a dumb note to myself, no the link is not removed (same probably for href maybe <P>)
+            //but fortunately the src/href and such is not there to trigger the scan
         }
 
-        //now down here we should have all of the links indexed, and we shouldn't also need to clean them
-        //thus just throw away anything leftover and just return a string of all the links put together, plus
-        //something like the \n to mean new line, so it prints out all the links in a nice list
-        
-
-        
-
-
-        //string cleaned = recievedNew.ToString();
-        // remove any remaining tags
-        //i think this is further cleaning, but idk yet what to do with this for images/links
-        /*var sb = new StringBuilder();
-        bool inTag = false;
-        for (int i = 0; i < cleaned.Length; i++) {
-            char c = cleaned[i];
-            if (!inTag) {
-                if (c == '<') { inTag = true; if (sb.Length > 0 && !char.IsWhiteSpace(sb[sb.Length - 1])) sb.Append(' '); }
-                else sb.Append(c);
-            }
-            else {
-                if (c == '>') inTag = false;
-            }
-        }
-        I dont think any of this is needed
-        */
 
 
 
@@ -572,24 +523,68 @@ public class GetImageLinks {
 
 
 
-        //REWRITE THIS PART FOR RETURNING IMAGES/LINKS
+
+
+
+
+        //currently this returns a string, may change it to img array of objects
         string decoded = ("");
         for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
             //for each string in linkArray do something
             decoded.Append(linkArray[indexCount]);
             //add link to thing
-            decoded.Append("\n");
-            //add a line break after every link
+            decoded.Append("⌘");
+            //add a random symbol to separate each link (will separate them in a different method)
+            //surely no image is using that, right? i literally just picked a really random symbol idk
         }
         
-        //WebUtility.HtmlDecode(sb.ToString());
-        // collapse whitespace and trim
-        //decoded = Regex.Replace(decoded, "\\s+", " ").Trim();
-        //probably pointless
-
         return decoded;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -599,12 +594,4 @@ public class MakeImages {
     //then at the end of the row just append \n and continue with the next row, thus making that string (kind of) a 2d grid of
     //characters that forms a picture, whcih can then be printed. Will have to figure out how to/where to put images in
 
-}
-
-public class GetImages {
-    //here, basically have a returned array or string from image links, then just do the thing with http and such
-    //then basically just grab the image and, store it as an object/variable or something in an array?
-
-
-    //then also return an array of image objects, maybe pass it to makeimages method
 }
