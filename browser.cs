@@ -44,13 +44,32 @@ public class MyProgram {
             }
 
             if (input.Substring(0,8).equals("linkscan")) {
-                Console.WriteLine("Sorry, not implemented yet");
                 //essentially, will scan links of the webpage put in after linkscan
                 //just create more modified classes of getData, like how I am making one for image urls, also links i guess
                 //although actually, getImages will be a modified getLinks
 
                 //basically here, just put a modified version of the like 20 lines below all the commands, and 
                 //also trim the input to just the url so that it works for the getLinks which needs a url as a parameter
+                        try {
+                            //substring is 9 as command is linkscan (space) url
+                            var getter = new GetLinks(input.Substring(9), "");
+                            string result = await getter.GetLinksFromSiteAsync();
+
+                            if (string.IsNullOrWhiteSpace(result)) {
+                                Console.WriteLine("no links found");
+                            }
+                            else {
+                                /*var lines = Regex.Split(result, "\r?\n");
+                                foreach (var line in lines) {
+                                    var t = line.Trim();
+                                    if (!string.IsNullOrEmpty(t)) Console.WriteLine(t);
+                                }
+                                do nothing, we dont need to format the links more they are formatted in getLinks
+                                */
+                            }
+                        } catch (Exception e) {
+                            Console.WriteLine("Error: " + e.Message);
+                        }
             }
 
             if (input.equals("idk")) {
