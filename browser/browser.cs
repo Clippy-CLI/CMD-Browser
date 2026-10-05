@@ -2,8 +2,9 @@
 
 //To do: fix bugs clean code
 //add the images thing
-//add tabs by like, adding a tab command whcih can take previous input (CHECK FOR NULL!) and then save it to
-//what is probably an array and then listTabs command will jsut print text of the tabs you have.
+//goal: no new devlogs until images are added
+//also maybe until verified so that people can see stuff
+
 
 using System;
 using System.Net.Http;
@@ -454,16 +455,53 @@ public class GetImageLinks {
             string linkToAddExtension = linkToAdd.Length >= 4 ? linkToAdd.Substring(linkToAdd.Length - 4) : linkToAdd;
             //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
             if (linkToAddExtension.Equals(".png")) {
-                linkArray.Add(linkToAdd);
+                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                    linkArray.Add(chooseURL + linkToAdd);
+                    //probably should get add url then the actual image if it isnt stored right
+                } else {
+                    linkArray.Add(linkToAdd);
+                }
             //why use || when you can use else if?
             } else if (linkToAddExtension.Equals("jpeg")) {
+                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                    linkArray.Add(chooseURL + linkToAdd);
+                    //probably should get add url then the actual image if it isnt stored right
+                } else {
+                    linkArray.Add(linkToAdd);
+                }
                 linkArray.Add(linkToAdd);
             } else if (linkToAddExtension.Equals(".jpg")) {
-                linkArray.Add(linkToAdd);
+                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                    linkArray.Add(chooseURL + linkToAdd);
+                    //probably should get add url then the actual image if it isnt stored right
+                } else {
+                    linkArray.Add(linkToAdd);
+                }
             } else if (linkToAddExtension.Equals("webp")) {
-                linkArray.Add(linkToAdd);
+                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                    linkArray.Add(chooseURL + linkToAdd);
+                    //probably should get add url then the actual image if it isnt stored right
+                } else {
+                    linkArray.Add(linkToAdd);
+                }
             }
+
+
+
+
+            //part we need to add
             string decoded = ("");
+            for each string link in linkArray {
+
+                
+
+
+
+                decoded = (decoded + "\n");
+                decoded = (decoded + "\n");
+                decoded = (decoded + "\n");
+                //big line break between each image
+            }
             return decoded;
         }
         // ensure method always returns a string (keep returning empty string for now)
