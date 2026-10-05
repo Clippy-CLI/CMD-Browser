@@ -1,6 +1,9 @@
 //Note that this program was originally made in java and was converted to c# later
 
 //To do: fix bugs clean code
+//add the images thing
+//add tabs by like, adding a tab command whcih can take previous input (CHECK FOR NULL!) and then save it to
+//what is probably an array and then listTabs command will jsut print text of the tabs you have.
 
 using System;
 using System.Net.Http;
