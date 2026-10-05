@@ -23,15 +23,14 @@ public class MyProgram {
             
             //yes the commands are only 1 line and yes I'm still using {} as it looks pretty
             //also i dont think it needs to be if/else because no two commands should be the same
+            if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) {
+                break;
+            }
 
             if (input.Equals("previous")) {
                 input = storeInput;
             }
             //allows you to type previous and bring up previous input
-            
-            if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) {
-                break;
-            }
 
             if (input.Equals("common")) {
                 //prints some common webpages
@@ -342,41 +341,8 @@ public class GetLinks {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //keeping this separate for now
+//for now, might just make this into a command
 public class GetImageLinks {
     private readonly string chooseURL;
     private readonly string recievePart;
@@ -483,7 +449,6 @@ public class GetImageLinks {
             //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
             if (linkToAddExtension.Equals(".png")) {
                 linkArray.Add(linkToAdd);
-
             //why use || when you can use else if?
             } else if (linkToAddExtension.Equals("jpeg")) {
                 linkArray.Add(linkToAdd);
@@ -493,53 +458,57 @@ public class GetImageLinks {
                 linkArray.Add(linkToAdd);
             }
 
-            
+            byte[][] downloadedImages = new byte[linkArray.Count][];
+
+                    using (var client = new HttpClient()) {
+                        for (int i = 0; i < linkArray.Count; i++) {
+                            try {
+                                downloadedImages[i] = client.GetByteArrayAsync(linkArray[i]).GetAwaiter().GetResult();
+                            }
+                            catch (Exception ex) {
+                                Console.WriteLine($"Problem {linkArray[i]}: {ex.Message}");
+                                downloadedImages[i] = null; // Mark failed downloads as null
+                            }
+                        }
+                    }
+
+                    //text array
+                    string[] asciiArtArray = new string[downloadedImages.Length];
+
+                    //allegedly this works
+                    for (int i = 0; i < downloadedImages.Length; i++) {
+                        if (downloadedImages[i] == null) {
+                            asciiArtArray[i] = " [Image failed to download] \n";
+                            continue;
+                        }
+
+                        try {
+                            string asciiResult = NativeAsciiGenerator.ConvertBmpToAscii(downloadedImages[i], targetWidth: 80);
+                            
+                            //put in array
+                            asciiArtArray[i] = asciiResult;
+                        }
+                        catch (Exception ex) {
+                            // Fallback in case a non-BMP format forces an error in our native decoder
+                            asciiArtArray[i] = $" [Error parsing image format: {ex.Message}] \n";
+                        }
+                    }
+
+                    //Example of printing them out all at once to the terminal
+                    string decoded = ("");
+                    foreach (string art in asciiArtArray) {
+                        decoded.Append(art);
+                        decoded.Append("\n");
+                        decoded.Append("\n");
+                        decoded.Append("\n");
+                        //extra big break because why not
+                    }
+                    return decoded;
 
 
             //also as a dumb note to myself, no the link is not removed (same probably for href maybe <P>)
             //but fortunately the src/href and such is not there to trigger the scan
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //currently this returns a string, may change it to img array of objects
-        //actually, dont even need a method could jsut convert all of the images in the array right here while converting
-        //them to a giant string using a mix of stuff like \n to divide them. Maybe do them individually (create each image
-        //to a string in a string array which then print out each part of the array)
-        //next to do, linkArray has to get the images to an array of object images 
-        string decoded = ("");
-        for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
-            //for each string in linkArray do something
-            decoded.Append(linkArray[indexCount]);
-            //add link to thing
-            decoded.Append("⌘");
-            //add a random symbol to separate each link (will separate them in a different method)
-            //surely no image is using that, right? i literally just picked a really random symbol idk
-        }
-    
-        return decoded;
     }
 }
 
@@ -588,11 +557,3 @@ public class GetImageLinks {
 
 
 
-
-public class MakeImages {
-    //make images from said links by going through whatever i decide to have put in here
-    //basically I think they will essentially be strings where you go through row by row, converting each pixel to a character
-    //then at the end of the row just append \n and continue with the next row, thus making that string (kind of) a 2d grid of
-    //characters that forms a picture, whcih can then be printed. Will have to figure out how to/where to put images in
-
-}
