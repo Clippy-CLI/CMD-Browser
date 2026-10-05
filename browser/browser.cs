@@ -22,6 +22,7 @@ public class MyProgram {
         Console.WriteLine("Type exit to quit");
         Console.WriteLine();
         string storeInput = ("");
+        List<String> tabArray = new List<String>();
         //create var to store the input for later
         while (true) {
             Console.Write("Enter URL: ");
@@ -78,9 +79,22 @@ public class MyProgram {
                 }
             }
 
-            if (input.Equals("idk", StringComparison.OrdinalIgnoreCase)) {
+            if (input.Equals("tab", StringComparison.OrdinalIgnoreCase)) {
                 handled = true;
-                Console.WriteLine("Sorry, not implemented yet");
+                Console.WriteLine(storeInput + "added as a tab");
+                tabArray.Add(storeInput);
+                //maybe add a thing so that you name it whatever you want but i'll add that later
+                //could also just make it simple one string array all even numbers (0,2,4) are the tab names and
+                //odd numbers (1,3,5) are the url
+            }
+
+            if (input.Equals("tabs", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
+                Console.WirteLine("Open Tabs:");
+                for (each string tab in tabArray) {
+                    Console.WriteLine(tab);
+                }
+                //simply print an arraylist 
             }
 
             if (input.Equals("help")) {
@@ -89,6 +103,8 @@ public class MyProgram {
                 Console.WriteLine("previous - Runs the previous command/url");
                 Console.WriteLine("common - Shows a list of common sites");
                 Console.WriteLine("linkscan + (url) - Shows available links on the webpage");
+                Console.WriteLine("tab - opens previous input as a tab");
+                Console.WriteLine("tabs - Shows a list of open tabs");
                 //remember to update this section with more commands as they are added
             }
             
