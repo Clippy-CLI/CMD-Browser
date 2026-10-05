@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 public class MyProgram {
     public static async Task Main(string[] args) {
-        Console.WriteLine("Welcome to CMD browser!");
+        Console.WriteLine("Welcome to Hydrogen browser!");
         Console.WriteLine("Type help for a list of commands");
         Console.WriteLine("Type exit to quit");
         Console.WriteLine();
@@ -133,7 +133,7 @@ public class GetData {
 
         try {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Browser_Name_CMDLineBrowser");
+            client.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -245,7 +245,7 @@ public class GetLinks {
 
         try {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Browser_Name_CMDLineBrowser");
+            client.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -354,7 +354,7 @@ public class GetImageLinks {
 
         try {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Browser_Name_CMDLineBrowser");
+            client.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
