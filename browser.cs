@@ -461,10 +461,6 @@ public class GetImageLinks {
             }
                     string decoded = ("");
                     return decoded;
-
-
-            //also as a dumb note to myself, no the link is not removed (same probably for href maybe <P>)
-            //but fortunately the src/href and such is not there to trigger the scan
         }
     }
 }
