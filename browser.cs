@@ -459,52 +459,7 @@ public class GetImageLinks {
             } else if (linkToAddExtension.Equals("webp")) {
                 linkArray.Add(linkToAdd);
             }
-
-            byte[][] downloadedImages = new byte[linkArray.Count][];
-
-                    using (var client = new HttpClient()) {
-                        for (int i = 0; i < linkArray.Count; i++) {
-                            try {
-                                downloadedImages[i] = client.GetByteArrayAsync(linkArray[i]).GetAwaiter().GetResult();
-                            }
-                            catch (Exception ex) {
-                                Console.WriteLine($"Problem {linkArray[i]}: {ex.Message}");
-                                downloadedImages[i] = null; // Mark failed downloads as null
-                            }
-                        }
-                    }
-
-                    //text array
-                    string[] asciiArtArray = new string[downloadedImages.Length];
-
-                    //allegedly this works
-                    for (int i = 0; i < downloadedImages.Length; i++) {
-                        if (downloadedImages[i] == null) {
-                            asciiArtArray[i] = " [Image failed to download] \n";
-                            continue;
-                        }
-
-                        try {
-                            string asciiResult = NativeAsciiGenerator.ConvertBmpToAscii(downloadedImages[i], targetWidth: 80);
-                            
-                            //put in array
-                            asciiArtArray[i] = asciiResult;
-                        }
-                        catch (Exception ex) {
-                            // Fallback in case a non-BMP format forces an error in our native decoder
-                            asciiArtArray[i] = $" [Error parsing image format: {ex.Message}] \n";
-                        }
-                    }
-
-                    //Example of printing them out all at once to the terminal
                     string decoded = ("");
-                    foreach (string art in asciiArtArray) {
-                        decoded.Append(art);
-                        decoded.Append("\n");
-                        decoded.Append("\n");
-                        decoded.Append("\n");
-                        //extra big break because why not
-                    }
                     return decoded;
 
 
