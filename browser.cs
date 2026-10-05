@@ -1,6 +1,7 @@
 //Note that this program was originally made in java and was converted to c# later
 
-//To do: fix bugs and clean
+//To do: fix bugs clean code
+
 using System;
 using System.Net.Http;
 using System.Text;
@@ -22,7 +23,8 @@ public class MyProgram {
         while (true) {
             Console.Write("Enter URL: ");
             string input = Console.ReadLine();
-            
+            bool handled = false;
+
             //yes the commands are only 1 line and yes I'm still using {} as it looks pretty
             //also i dont think it needs to be if/else because no two commands should be the same
             if (input == null || input.Equals("exit", StringComparison.OrdinalIgnoreCase)) {
@@ -35,6 +37,7 @@ public class MyProgram {
             //allows you to type previous and bring up previous input
 
             if (input.Equals("common")) {
+                handled = true;
                 //prints some common webpages
                 Console.WriteLine("Common Webpages:");
 
@@ -44,40 +47,45 @@ public class MyProgram {
                 //add more later, especially when links are available.
             }
 
-            if (input.Substring(0,8).equals("linkscan")) {
+            if (input.StartsWith("linkscan", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
                 //essentially, will scan links of the webpage put in after linkscan
-                        try {
-                            //substring is 9 as command is linkscan (space) url
-                            var getter = new GetLinks(input.Substring(9), "");
-                            string result = await getter.GetLinksFromSiteAsync();
+                try {
+                    //substring is 9 as command is linkscan (space) url
+                    string urlPart = input.Length > 9 ? input.Substring(9).Trim() : string.Empty;
+                    var getter = new GetLinks(urlPart, "");
+                    string result = await getter.GetLinksFromSiteAsync();
 
-                            if (string.IsNullOrWhiteSpace(result)) {
-                                Console.WriteLine("no links found");
-                            }
-                            else {
-                                /*var lines = Regex.Split(result, "\r?\n");
-                                foreach (var line in lines) {
-                                    var t = line.Trim();
-                                    if (!string.IsNullOrEmpty(t)) Console.WriteLine(t);
-                                }
-                                do nothing, we dont need to format the links more they are formatted in getLinks
-                                */
-                            }
-                        } catch (Exception e) {
-                            Console.WriteLine("Error: " + e.Message);
+                    if (string.IsNullOrWhiteSpace(result)) {
+                        Console.WriteLine("no links found");
+                    }
+                    else {
+                        /*var lines = Regex.Split(result, "\r?\n");
+                        foreach (var line in lines) {
+                            var t = line.Trim();
+                            if (!string.IsNullOrEmpty(t)) Console.WriteLine(t);
                         }
+                        do nothing, we dont need to format the links more they are formatted in getLinks
+                        */
+                        // print the raw links output
                         Console.WriteLine(result);
+                    }
+                } catch (Exception e) {
+                    Console.WriteLine("Error: " + e.Message);
+                }
             }
 
-            if (input.equals("idk")) {
+            if (input.Equals("idk", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
                 Console.WriteLine("Sorry, not implemented yet");
             }
 
-             if (input.Equals("help")) {
-                Console.WriteLine("Exit - Closes the program");
-                Console.WriteLine("Previous - Runs the previous command/url");
-                Console.WriteLine("Common - Shows a list of common sites");
-                Console.WriteLine("Linkscan + (url) - Shows available links on the webpage");
+            if (input.Equals("help")) {
+                handled = true;
+                Console.WriteLine("exit - Closes the program");
+                Console.WriteLine("previous - Runs the previous command/url");
+                Console.WriteLine("common - Shows a list of common sites");
+                Console.WriteLine("linkscan + (url) - Shows available links on the webpage");
                 //remember to update this section with more commands as they are added
             }
             
@@ -85,26 +93,25 @@ public class MyProgram {
             //after here add more commands, or if anything needs to be done before try
 
             storeInput = (input);
-            try {
-                var getter = new GetData(input, "");
-                string result = await getter.GetDataFromSiteAsync();
+            if (!handled) {
+                try {
+                    var getter = new GetData(input, "");
+                    string result = await getter.GetDataFromSiteAsync();
 
-                if (string.IsNullOrWhiteSpace(result)) {
-                    Console.WriteLine("(no readable <p> content found)");
-                }
-                else {
-                    var lines = Regex.Split(result, "\r?\n");
-                    foreach (var line in lines) {
-                        var t = line.Trim();
-                        if (!string.IsNullOrEmpty(t)) Console.WriteLine(t);
+                    if (string.IsNullOrWhiteSpace(result)) {
+                        Console.WriteLine("(no readable <p> content found)");
                     }
+                    else {
+                        var lines = Regex.Split(result, "\r?\n");
+                        foreach (var line in lines) {
+                            var t = line.Trim();
+                            if (!string.IsNullOrEmpty(t)) Console.WriteLine(t);
+                        }
+                    }
+                } catch (Exception e) {
+                    Console.WriteLine("Error: " + e.Message);
                 }
             }
-            catch (Exception e) {
-                Console.WriteLine("Error: " + e.Message);
-            }
-
-            Console.WriteLine("\nLine Break\n");
         }
 
         Console.WriteLine("Closed");
@@ -138,16 +145,15 @@ public class GetData {
             if (!response.IsSuccessStatusCode) {
                 if ((int)response.StatusCode == 403) {
                     return "Http 403, request rejected (Error Detected as bot/blocked traffic";
-				}
+                }
 
                 if (string.IsNullOrEmpty(recievedData)) {
                     return "Error loading website (Error No Content Recieved From Site)";
-				}
+                }
 
                 return "An error has occured, check the URL and try again (Error Site not found";
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Console.WriteLine("Looks bad: " + e);
             var eString = e.ToString();
             if (eString.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1) {
@@ -229,8 +235,6 @@ public class GetLinks {
     //linkArray.Add("(url)");
     //should be uppercase
 
-    
-
     public GetLinks(string pickURL, string parameter) {
         chooseURL = pickURL;
         recievePart = parameter;
@@ -253,16 +257,15 @@ public class GetLinks {
             if (!response.IsSuccessStatusCode) {
                 if ((int)response.StatusCode == 403) {
                     return "Http 403, request rejected (Error Detected as bot/blocked traffic";
-				}
+                }
 
                 if (string.IsNullOrEmpty(recievedData)) {
                     return "Error loading website (Error No Content Recieved From Site)";
-				}
+                }
 
                 return "An error has occured, check the URL and try again (Error Site not found";
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Console.WriteLine("Looks bad: " + e);
             var eString = e.ToString();
             if (eString.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1) {
@@ -283,10 +286,7 @@ public class GetLinks {
         while (true) {
 
             //its going to need to scan for href or something
-            //also further note, oftentimes the image is src="url"
-
-
-
+            //also further note, oftentimes the image is src=\"url\"
 
             //put like, href here
             int start = work.IndexOf("href", StringComparison.OrdinalIgnoreCase);
@@ -294,23 +294,20 @@ public class GetLinks {
 
             work = work.Substring(start);
             int gt = work.IndexOf('"');
-            //first " in the link, so it does get removed
+            //first \" in the link, so it does get removed
 
             if (gt == -1) break; // malformed
 
             work = work.Substring(gt + 1);
             //in this stage, would have the first/whatever number url, plus everything after it
 
-
-
             //now down here, just instead of adding that <p> </p> to the output and removing it, just add the link to the
             //string array and remove the link + href from the sccanning. repeat until all href links are indexed.
 
-            //now down here there is only one " which is the end of the link
-            int endP = work.IndexOf("\"", StringComparison.OrdinalIgnoreCase);
+            //now down here there is only one '"' which is the end of the link
+            int endP = work.IndexOf('"');
             if (endP == -1) {
                 // take remainder
-              
                 break;
             }
 
@@ -318,29 +315,22 @@ public class GetLinks {
             //currently 0 (start of URL) to endP
             linkArray.Add(work.Substring(0, endP));
             //nice link is added to array for later
-
-
-
+            //advance past the end of this link so scanning continues
+            work = work.Substring(endP + 1);
         }
 
-
-
-
-
-
-        string decoded = ("");
-        for (int indexCount = 0; indexCount < linkArray.Length; indexCount++) {
+        var decodedSb = new StringBuilder();
+        for (int indexCount = 0; indexCount < linkArray.Count; indexCount++) {
             //for each string in linkArray do something
-            decoded.Append(linkArray[indexCount]);
+            decodedSb.Append(linkArray[indexCount]);
             //add link to thing
-            decoded.Append("\n");
+            decodedSb.Append("\n");
             //add a line break after every link
         }
-        
-        return decoded;
+
+        return decodedSb.ToString();
     }
 }
-
 
 
 //keeping this separate for now
@@ -353,8 +343,6 @@ public class GetImageLinks {
     List<String> linkArray = new List<String>();
     //linkArray.Add("(url)");
     //should be uppercase
-
-    
 
     public GetImageLinks(string pickURL, string parameter) {
         chooseURL = pickURL;
@@ -378,16 +366,15 @@ public class GetImageLinks {
             if (!response.IsSuccessStatusCode) {
                 if ((int)response.StatusCode == 403) {
                     return "Http 403, request rejected (Error Detected as bot/blocked traffic";
-				}
+                }
 
                 if (string.IsNullOrEmpty(recievedData)) {
                     return "Error loading website (Error No Content Recieved From Site)";
-				}
+                }
 
                 return "An error has occured, check the URL and try again (Error Site not found";
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Console.WriteLine("Looks bad: " + e);
             var eString = e.ToString();
             if (eString.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1) {
@@ -407,7 +394,7 @@ public class GetImageLinks {
         while (true) {
 
             //its going to need to scan for href or something
-            //also further note, oftentimes the image is src="url"
+            //also further note, oftentimes the image is src=\"url\"
 
             //THIS IS WHERE WE GET IMAGE LINKS
             //THIS IS THE ONLY PART LEFT TO BASCIALLY CHANGE THE INDEXED LINKS FROM HREF TO SRC ONES
@@ -417,28 +404,26 @@ public class GetImageLinks {
 
             work = work.Substring(start);
             int gt = work.IndexOf("\"");
-            //first " in the src, so it does get removed
+            //first \" in the src, so it does get removed
 
             if (gt == -1) break; // malformed
 
             work = work.Substring(gt + 1);
             //in this stage, would have the first/whatever number url, plus everything after it
 
-
-
             //now down here, just instead of adding that <p> </p> to the output and removing it, just add the link to the
             //string array and remove the link + href from the sccanning. repeat until all href links are indexed.
 
-            //now down here there is only one " which is the end of the link
+            //now down here there is only one \" which is the end of the link
             int endP = work.IndexOf("\"", StringComparison.OrdinalIgnoreCase);
             if (endP == -1) {
                 // take remainder
-              
+
                 break;
             }
 
 
-            //uses same thing as href and just grabs a raw link here ("image.png", "script.js", etc)
+            //uses same thing as href and just grabs a raw link here (\"image.png\", \"script.js\", etc)
             //so actually, we can reuse it but just save the source urls only if it ends in like .jpg .png .jpeg .webp .svg, etc
             //this allows us to bascially completely re-use the href, and just filter stuff out at a later level
 
@@ -447,7 +432,7 @@ public class GetImageLinks {
             //now to determine if it is an image using the above mentioned file formats
             string linkToAdd = work.Substring(0, endP);
             //just declaring it as a simpler variable to reuse
-            string linkToAddExtension = linkToAdd.Substring(linkToAdd.Length - 4);
+            string linkToAddExtension = linkToAdd.Length >= 4 ? linkToAdd.Substring(linkToAdd.Length - 4) : linkToAdd;
             //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
             if (linkToAddExtension.Equals(".png")) {
                 linkArray.Add(linkToAdd);
@@ -459,54 +444,10 @@ public class GetImageLinks {
             } else if (linkToAddExtension.Equals("webp")) {
                 linkArray.Add(linkToAdd);
             }
-                    string decoded = ("");
-                    return decoded;
+            string decoded = ("");
+            return decoded;
         }
+        // ensure method always returns a string (keep returning empty string for now)
+        return string.Empty;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
