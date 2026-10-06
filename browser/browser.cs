@@ -1,9 +1,11 @@
 //Note that this program was originally made in java and was converted to c# later
 
 //To do: fix bugs clean code
-//add the images thing
+//add the images implemntation
 //goal: no new devlogs until images are added
 //also maybe until verified so that people can see stuff
+
+//other ideas to add: more commands, implementations of normal browser features, idk what else
 
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
