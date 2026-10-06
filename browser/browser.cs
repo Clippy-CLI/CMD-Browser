@@ -86,6 +86,26 @@ public class MyProgram {
                     Console.WriteLine("Error: " + e.Message);
                 }
             }
+            //for now, Im just running images as a command
+            if (input.StartsWith("images", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
+                //uhh idk i copied this from link command
+                try {
+                    //images is 7 as command is linkscan (space) url
+                    string urlPart = input.Length > 7 ? input.Substring(7).Trim() : string.Empty;
+                    var getter = new GetLinks(urlPart, "");
+                    string result = await getter.GetImageLinksFromSiteAsync();
+
+                    if (string.IsNullOrWhiteSpace(result)) {
+                        Console.WriteLine("no images found");
+                    }
+                    else {
+                        Console.WriteLine(result);
+                    }
+                } catch (Exception e) {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+            }
 
             if (input.Equals("tab", StringComparison.OrdinalIgnoreCase)) {
                 handled = true;
@@ -113,6 +133,7 @@ public class MyProgram {
                 Console.WriteLine("linkscan + (url) - Shows available links on the webpage");
                 Console.WriteLine("tab - opens previous input as a tab");
                 Console.WriteLine("tabs - Shows a list of open tabs");
+                Console.WriteLine("images + (url) - displays images from site as ascii");
                 //remember to update this section with more commands as they are added
             }
             
