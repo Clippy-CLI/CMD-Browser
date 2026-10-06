@@ -6,6 +6,7 @@
 //also maybe until verified so that people can see stuff
 
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -487,20 +488,36 @@ public class GetImageLinks {
             }
 
 
+            /*
 
+
+            */
 
             //part we need to add
             string decoded = ("");
-            for each string link in linkArray {
+            for (int i = 0; i < linkArray.Count; i++) {
+
+
+                //as per my understanding, gets images from URL
+                using (Stream stream = await client.GetStreamAsync(linkArray[i])) {
+                        using (Image image = await Image.LoadAsync(stream)) {
+                            int width = image.Width;
+                            int height = image.Height;
+                            image.Mutate(x => x.Resize(80, 60)); //oh boy some of those images are gonna look funny
+
+
+
+                            
+
+                            decoded = (decoded + "\n");
+                            decoded = (decoded + "\n");
+                            decoded = (decoded + "\n");
+                            //big line break between each image
+                        }
+                }
+
 
                 
-
-
-
-                decoded = (decoded + "\n");
-                decoded = (decoded + "\n");
-                decoded = (decoded + "\n");
-                //big line break between each image
             }
             return decoded;
         }
