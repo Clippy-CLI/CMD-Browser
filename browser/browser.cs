@@ -10,6 +10,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Net.Http;
 using System.Text;
+using SixLabors.ImageSharp.PixelFormats;
 using System.Threading.Tasks;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -50,7 +51,10 @@ public class MyProgram {
                 Console.WriteLine("Wikipedia: https://en.wikipedia.org/wiki/(page)");
                 Console.WriteLine("Simple wikipeida: https://simple.wikipedia.org/wiki/(page)");
                 Console.WriteLine("Project Gutenberg (Ebooks): https://www.gutenberg.org/cache/epub/(bookcode)/pg(bookcode)-images.html");
+                Console.WriteLine("Legible news: https://legiblenews.com/");
+                Console.WriteLine("Legible news: https://legiblenews.com/");
                 //add more later, especially when links are available.
+               
             }
 
             if (input.StartsWith("linkscan", StringComparison.OrdinalIgnoreCase)) {
@@ -487,29 +491,56 @@ public class GetImageLinks {
                 }
             }
 
-
-            /*
-
-
-            */
-
             //part we need to add
             string decoded = ("");
             for (int i = 0; i < linkArray.Count; i++) {
 
-
+                
                 //as per my understanding, gets images from URL
                 using (Stream stream = await client.GetStreamAsync(linkArray[i])) {
                         using (Image image = await Image.LoadAsync(stream)) {
                             int width = image.Width;
                             int height = image.Height;
-                            image.Mutate(x => x.Resize(80, 30)); //oh boy some of those images are gonna look funny
-                            //30 because terminals are more rectangular so 80-30 should be around 4:3
 
                             //here convert given image to ascii then add to decoded
 
-                            
+                                //suppsoed example I found
+                                            private static readonly char[] AsciiRamp = [' ', '.', ':', '-', '=', '+', '*', '%', '@', '#'];
+                                            
+                                            using Image<Rgb24> image = linkArray[i].CloneAs<Rgb24>();
 
+                                            //change dimensions
+                                            double aspectRadio = (double)image.Height / image.Width;
+                                            int targetHeight = (int)(80 * aspectRadio * 0.5);
+
+                                            //resize
+                                            image.Mutate(ctx => ctx.Resize(targetWidth, targetHeight));
+
+                                            var asciiBuilder = new StringBuilder();
+
+                                            image.ProcessPixelRows(accessor =>n{
+                                                for (int y = 0; y < accessor.Height; y++) {
+                                                    Span<Rgb24> pixelRow = accessor.GetRowSpan(y);
+
+                                                    for (int x = 0; x < pixelRow.Length; x++) {
+                                                        Rgb24 pixel = pixelRow[x];
+
+                                                        // Standard luminance formula to convert RGB to Grayscale
+                                                        double luminance = (0.2126 * pixel.R) + (0.7152 * pixel.G) + (0.0722 * pixel.B);
+
+                                                        // Map the 0-255 luminance value to our 0-(AsciiRamp.Length - 1) index
+                                                        int rampIndex = (int)(luminance / 255.0 * (AsciiRamp.Length - 1));
+
+                                                        asciiBuilder.Append(AsciiRamp[rampIndex]);
+                                                    }
+
+                                                    // Move to the next text row
+                                                    asciiBuilder.AppendLine();
+                                                }
+                                            });
+                            
+                            decoded = (decoded + asciiBuilder);
+                            //add the image which should include \n between lines with appendline
                             decoded = (decoded + "\n");
                             decoded = (decoded + "\n");
                             decoded = (decoded + "\n");
@@ -521,6 +552,7 @@ public class GetImageLinks {
                 
             }
             return decoded;
+            //now is gonna return a whole lot of stuff
         }
         // ensure method always returns a string (keep returning empty string for now)
         return string.Empty;
