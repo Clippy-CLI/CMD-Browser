@@ -503,9 +503,10 @@ public class GetImageLinks {
                         using (Image image = await Image.LoadAsync(stream)) {
                             int width = image.Width;
                             int height = image.Height;
-                            image.Mutate(x => x.Resize(80, 60)); //oh boy some of those images are gonna look funny
+                            image.Mutate(x => x.Resize(80, 30)); //oh boy some of those images are gonna look funny
+                            //30 because terminals are more rectangular so 80-30 should be around 4:3
 
-
+                            //here convert given image to ascii then add to decoded
 
                             
 
