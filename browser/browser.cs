@@ -3,8 +3,17 @@
 //To do: fix bugs clean code
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
+//hmmmm,what about reading files? like txt or whatever, idk how hard it would be to read those, i suppose then maybe images
+//also maybe add a command to save the current page as a text file to save offline
+//You know what every broiwser needs? A fun little offline game, I should add that :) (also easy as 0 http for anything)
+//add my name or somsething somewhere in the code jsut as a "made by" kinda, not important but easy
+//make a cool boot/intro screen with a little ascii animation?
+//clear terminal command to clear everything if needed
+//BRUH COPILOT STOP SUGGESTING bro copilot is on something these suggestions are wild
 
-//also scrateched the idea of verified as I want to make a devlog
+
+
+//also scrateched the idea of verified before new devlogs as I want to make a devlog
 
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
