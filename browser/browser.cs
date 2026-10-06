@@ -4,18 +4,9 @@
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
 //hmmmm,what about reading files? like txt or whatever, idk how hard it would be to read those, i suppose then maybe images
-//also maybe add a command to save the current page as a text file to save offline
-//You know what every broiwser needs? A fun little offline game, I should add that :) (also easy as 0 http for anything)
-//add my name or somsething somewhere in the code jsut as a "made by" kinda, not important but easy
-//make a cool boot/intro screen with a little ascii animation?
-//clear terminal command to clear everything if needed
-//BRUH COPILOT STOP SUGGESTING bro copilot is on something these suggestions are wild
-
-
-
-//also scrateched the idea of verified before new devlogs as I want to make a devlog
 
 using SixLabors.ImageSharp;
+using System.IO;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.Net.Http;
@@ -30,9 +21,14 @@ using System.Collections.Generic;
 
 public class MyProgram {
     public static async Task Main(string[] args) {
+        Console.WriteLine("+-----+");
+        Console.WriteLine("|--H--|");
+        Console.WriteLine("+-----+");
+        //neat image for now
         Console.WriteLine("Welcome to Hydrogen browser!");
         Console.WriteLine("Type help for a list of commands");
         Console.WriteLine("Type exit to quit");
+        Console.WriteLine("Made by Clippy-CLI");
         Console.WriteLine();
         string storeInput = ("");
         List<String> tabArray = new List<String>();
@@ -51,6 +47,11 @@ public class MyProgram {
             if (input.Equals("previous")) {
                 input = storeInput;
             }
+
+            if (input.Equals("previous")) {
+                input = storeInput;
+            }
+
             //allows you to type previous and bring up previous input
 
             if (input.Equals("common")) {
@@ -101,7 +102,7 @@ public class MyProgram {
                 try {
                     //images is 7 as command is linkscan (space) url
                     string urlPart = input.Length > 7 ? input.Substring(7).Trim() : string.Empty;
-                    var getter = new GetLinks(urlPart, "");
+                    var getter = new GetImageLinks(urlPart, "");
                     string result = await getter.GetImageLinksFromSiteAsync();
 
                     if (string.IsNullOrWhiteSpace(result)) {
@@ -133,6 +134,49 @@ public class MyProgram {
                 //simply print an arraylist 
             }
 
+            if (input.Equals("clear", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
+                Console.Clear();
+                //clears the terminal
+            }
+
+            if (input.Equals("game", StringComparison.OrdinalIgnoreCase)) {
+                //start a game, all handled right here
+                Console.WriteLine("Sorry not implemented yet");
+            }
+
+            if (input.StartsWith("savepage", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
+                //essentially, will scan links of the webpage put in after linkscan
+                try {
+                    //substring is 9 as command is linkscan (space) url
+                    string urlPart = input.Length > 9 ? input.Substring(9).Trim() : string.Empty;
+                    var getter = new GetData(urlPart, "");
+                    string result = await getter.GetDataFromSiteAsync();
+
+                    if (string.IsNullOrWhiteSpace(result)) {
+                        Console.WriteLine("no links found");
+                    }
+                    else {
+                        /*var lines = Regex.Split(result, "\r?\n");
+                        foreach (var line in lines) {
+                            var t = line.Trim();
+                            if (!string.IsNullOrEmpty(t)) Console.WriteLine(t);
+                        }
+                        do nothing, we dont need to format the links more they are formatted in getLinks
+                        */
+                        // print the raw links output
+
+                        //string = result
+                        //linkname.txt saves all the data that it has I think here
+                        File.WriteAllText(urlpart.txt, result);
+                        Console.WriteLine("Page saved as txt file");
+                    }
+                } catch (Exception e) {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+            }
+
             if (input.Equals("help")) {
                 handled = true;
                 Console.WriteLine("exit - Closes the program");
@@ -142,6 +186,9 @@ public class MyProgram {
                 Console.WriteLine("tab - opens previous input as a tab");
                 Console.WriteLine("tabs - Shows a list of open tabs");
                 Console.WriteLine("images + (url) - displays images from site as ascii");
+                Console.WriteLine("clear - clears the terminal");
+                Console.WriteLine("game - fun little offline game");
+                Console.WriteLine("savepage + (url) - saves the page as a text file");
                 //remember to update this section with more commands as they are added
             }
             
