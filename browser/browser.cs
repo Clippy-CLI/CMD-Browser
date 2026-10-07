@@ -4,11 +4,19 @@
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
 
-
-
 //hmmmm,what about reading files? like txt or whatever, idk how hard it would be to read those, i suppose then maybe images
 //would prefer it to be same command (just change read to readfile, also the desc of it) and bascially just check if
 //it is a txt or support image file
+
+//random animation like a rotating cube or something random/goofy?
+
+
+//BIG features: (I need a few of these to get more time)
+//after a little while, another big reformatting/bug fixes sweep
+//at some point I need to find out how to get this to have a working demo somewhere, still planning codehs but that requires a
+//big reform, and depending on how much I need to change, possibly a downgrade to .net 8, if not that maybe just do something
+//like webassembly or replit if that works also
+
 
 using SixLabors.ImageSharp;
 using System.IO;
@@ -68,8 +76,9 @@ public class MyProgram {
                 Console.WriteLine("Simple wikipeida: https://simple.wikipedia.org/wiki/(page)");
                 Console.WriteLine("Project Gutenberg (Ebooks): https://www.gutenberg.org/cache/epub/(bookcode)/pg(bookcode)-images.html");
                 Console.WriteLine("Legible news: https://legiblenews.com/");
-                Console.WriteLine("Legible news: https://legiblenews.com/");
+                Console.WriteLine("");
                 //add more later, especially when links are available.
+                //ideas: google code styleguides, stock tickers or something, whatever else i can maybe find
                
             }
 
