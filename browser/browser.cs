@@ -71,10 +71,6 @@ public class MyProgram {
                 input = storeInput;
             }
 
-            if (input.Equals("previous")) {
-                input = storeInput;
-            }
-
             //allows you to type previous and bring up previous input
 
             if (input.Equals("common")) {
