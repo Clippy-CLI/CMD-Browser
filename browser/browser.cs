@@ -8,8 +8,6 @@
 //would prefer it to be same command (just change read to readfile, also the desc of it) and bascially just check if
 //it is a txt or support image file
 
-//random animation like a rotating cube or something random/goofy?
-
 
 //BIG features: (I need a few of these to get more time)
 //after a little while, another big reformatting/bug fixes sweep
@@ -141,7 +139,7 @@ public class MyProgram {
 
             if (input.Equals("tabs", StringComparison.OrdinalIgnoreCase)) {
                 handled = true;
-                Console.WirteLine("Open Tabs:");
+                Console.WriteLine("Open Tabs:");
                 for (each string tab in tabArray) {
                     Console.WriteLine(tab);
                 }
