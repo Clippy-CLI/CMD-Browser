@@ -3,7 +3,12 @@
 //To do: fix bugs clean code
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
+
+
+
 //hmmmm,what about reading files? like txt or whatever, idk how hard it would be to read those, i suppose then maybe images
+//would prefer it to be same command (just change read to readfile, also the desc of it) and bascially just check if
+//it is a txt or support image file
 
 using SixLabors.ImageSharp;
 using System.IO;
@@ -143,6 +148,10 @@ public class MyProgram {
             if (input.Equals("game", StringComparison.OrdinalIgnoreCase)) {
                 //start a game, all handled right here
                 Console.WriteLine("Sorry not implemented yet");
+                /*hmm, what would be a fun game, ideas:
+                I want it to be unique
+                lets just wait on this
+                */
             }
 
             if (input.StartsWith("savepage", StringComparison.OrdinalIgnoreCase)) {
@@ -177,6 +186,20 @@ public class MyProgram {
                 }
             }
 
+            if (input.StartsWith("readfile", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
+                    string filePath = input.Length > 9 ? input.Substring(9).Trim() : string.Empty;
+                        try {
+                            // Read the entire file into a string
+                            string fileText = File.ReadAllText(filePath);
+                            Console.WriteLine(fileText);
+                            Console.WriteLine("File contents displayed successfully");
+                        } catch (IOException e)  {
+                            Console.WriteLine($"An error occurred while reading the file: {e.Message}");
+                        }
+        
+            }
+
             if (input.Equals("help")) {
                 handled = true;
                 Console.WriteLine("exit - Closes the program");
@@ -187,8 +210,9 @@ public class MyProgram {
                 Console.WriteLine("tabs - Shows a list of open tabs");
                 Console.WriteLine("images + (url) - displays images from site as ascii");
                 Console.WriteLine("clear - clears the terminal");
-                Console.WriteLine("game - fun little offline game");
+                Console.WriteLine("game - a small, fun, offline game");
                 Console.WriteLine("savepage + (url) - saves the page as a text file");
+                Console.WriteLine("readfile + (file) - reads a specified txt file");
                 //remember to update this section with more commands as they are added
             }
             
