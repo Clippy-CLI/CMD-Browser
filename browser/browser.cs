@@ -26,7 +26,7 @@
 //ok nvm c# devkit added more, maybe before final release try to trim this down a bit so that it has somewhat less of a mess
 //of files. And now errors show up correctly thankfully in this codespace. I have 58 so oh boy tomorrow is going to be a lot
 //of debugging
-
+//dang if the kdyboard id dead
 
 using SixLabors.ImageSharp;
 using System.IO;
