@@ -619,8 +619,8 @@ public class GetImageLinks {
                     var response = await imageClient.GetAsync(linkArray[i]);
 
                     recievedData = await response.Content.ReadAsStringAsync();
-                        using (Stream stream = await imageClient.GetStreamAsync(linkArray[i])) {
-                        using (Image image = await Image.LoadAsync(stream)) {
+                        using (Stream streamImage = await imageClient.GetStreamAsync(linkArray[i])) {
+                        using (Image image = await Image.LoadAsync(streamImage)) {
                             
 
                             //here convert given image to ascii then add to decoded
