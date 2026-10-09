@@ -635,7 +635,7 @@ public class GetImageLinks {
                                             int targetHeight = (int)(80 * aspectRadio * 0.5);
 
                                             //resize
-                                            image.Mutate(ctx => ctx.Resize(targetWidth, targetHeight));
+                                            image.Mutate(ctx => ctx.Resize(80, targetHeight));
 
                                             var asciiBuilder = new StringBuilder();
 
