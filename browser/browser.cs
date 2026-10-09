@@ -626,7 +626,7 @@ public class GetImageLinks {
                             //here convert given image to ascii then add to decoded
 
                                 //suppsoed example I found
-                                            private static readonly char[] AsciiRamp = [' ', '.', ':', '-', '=', '+', '*', '%', '@', '#'];
+                                            char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
                                             
                                             using Image<Rgb24> image = linkArray[i].CloneAs<Rgb24>();
 
