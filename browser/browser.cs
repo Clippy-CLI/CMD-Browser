@@ -25,6 +25,7 @@ using System.Text;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Threading.Tasks;
 using System.Net;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using System.Collections.Generic;
@@ -605,7 +606,20 @@ public class GetImageLinks {
 
                 
                 //as per my understanding, gets images from URL
-                using (Stream stream = await client.GetStreamAsync(linkArray[i])) {
+                //i think here, we may need to make a new http client as the previous one is only text
+                //so i guess we make another http client for images?
+                // or is it there a method to jsut, get all images from a site?
+                //actually no, lets not do that as the image links can probably be helpful somewhere else in the future
+
+                    using var imageClient = new HttpClient();
+                    imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+                    imageClient.DefaultRequestHeaders.Add("Accept", "text/html");
+                    imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
+                    imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
+                    var response = await imageClient.GetAsync(linkArray[i]);
+
+                    recievedData = await response.Content.ReadAsStringAsync();
+                        using (Stream stream = await imageClient.GetStreamAsync(linkArray[i])) {
                         using (Image image = await Image.LoadAsync(stream)) {
                             
 
