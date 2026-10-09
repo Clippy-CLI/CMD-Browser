@@ -628,7 +628,8 @@ public class GetImageLinks {
                                 //suppsoed example I found
                                             char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
                                             
-                                            using Image<Rgb24> imageToPrint = linkArray[i].CloneAs<Rgb24>();
+
+                                            using Image<Rgb24> imageToPrint = image.CloneAs<Rgb24>();
                                             int width = imageToPrint.Width;
                                             int height = imageToPrint.Height;
                                             //change dimensions
