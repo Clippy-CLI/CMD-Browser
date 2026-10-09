@@ -194,7 +194,10 @@ public class MyProgram {
 
                         //string = result
                         //linkname.txt saves all the data that it has I think here
-                        File.WriteAllText(urlpart.txt, result);
+
+                        //for now I am calling it savedSite.txt as using like http:// has a lot of characters that 
+                        //cannot be used in filenames
+                        File.WriteAllText("savedSite.txt", result);
                         Console.WriteLine("Page saved as txt file");
                     }
                 } catch (Exception e) {
@@ -636,7 +639,7 @@ public class GetImageLinks {
 
                                             var asciiBuilder = new StringBuilder();
 
-                                            image.ProcessPixelRows(accessor =>n{
+                                            image.ProcessPixelRows(accessor =>{
                                                 for (int y = 0; y < accessor.Height; y++) {
                                                     Span<Rgb24> pixelRow = accessor.GetRowSpan(y);
 
@@ -669,6 +672,7 @@ public class GetImageLinks {
 
                 
             }
+            //WHY IS DECODED NOT REACHABLE HERE!?
             return decoded;
             //now is gonna return a whole lot of stuff
         }
