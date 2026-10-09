@@ -27,6 +27,8 @@
 //of files. And now errors show up correctly thankfully in this codespace. I have 58 so oh boy tomorrow is going to be a lot
 //of debugging
 
+//oh boy now time for debugging
+
 using SixLabors.ImageSharp;
 using System.IO;
 using SixLabors.ImageSharp.Processing;
@@ -147,8 +149,8 @@ public class MyProgram {
             if (input.Equals("tabs", StringComparison.OrdinalIgnoreCase)) {
                 handled = true;
                 Console.WriteLine("Open Tabs:");
-                for (each string tab in tabArray) {
-                    Console.WriteLine(tab);
+                for (int i = 0; i < tabArray.Count; i++) {
+                    Console.WriteLine(tabArray[i]);
                 }
                 //simply print an arraylist 
             }
@@ -576,7 +578,7 @@ public class GetImageLinks {
             string linkToAddExtension = linkToAdd.Length >= 4 ? linkToAdd.Substring(linkToAdd.Length - 4) : linkToAdd;
             //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
             if (linkToAddExtension.Equals(".png")) {
-                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
@@ -584,7 +586,7 @@ public class GetImageLinks {
                 }
             //why use || when you can use else if?
             } else if (linkToAddExtension.Equals("jpeg")) {
-                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
@@ -592,14 +594,14 @@ public class GetImageLinks {
                 }
                 linkArray.Add(linkToAdd);
             } else if (linkToAddExtension.Equals(".jpg")) {
-                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
                     linkArray.Add(linkToAdd);
                 }
             } else if (linkToAddExtension.Equals("webp")) {
-                if ((linToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
