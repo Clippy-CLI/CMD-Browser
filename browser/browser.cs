@@ -628,8 +628,8 @@ public class GetImageLinks {
                                             char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
                                             
                                             using Image<Rgb24> image = linkArray[i].CloneAs<Rgb24>();
-                                                int width = image.Width;
-                                                int height = image.Height;
+                                            int width = image.Width;
+                                            int height = image.Height;
                                             //change dimensions
                                             double aspectRadio = (double)image.Height / image.Width;
                                             int targetHeight = (int)(80 * aspectRadio * 0.5);
