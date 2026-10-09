@@ -676,7 +676,7 @@ public class GetImageLinks {
             return decoded;
             //now is gonna return a whole lot of stuff
         }
-        // ensure method always returns a string (keep returning empty string for now)
-        return string.Empty;
+        //idk what this is but its unreachable and gets mad if i return a string and says it msut be int, idk
+        return 0;
     }
 }
