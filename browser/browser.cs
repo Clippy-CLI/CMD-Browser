@@ -628,19 +628,19 @@ public class GetImageLinks {
                                 //suppsoed example I found
                                             char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
                                             
-                                            using Image<Rgb24> image = linkArray[i].CloneAs<Rgb24>();
-                                            int width = image.Width;
-                                            int height = image.Height;
+                                            using Image<Rgb24> imageToPrint = linkArray[i].CloneAs<Rgb24>();
+                                            int width = imageToPrint.Width;
+                                            int height = imageToPrint.Height;
                                             //change dimensions
-                                            double aspectRadio = (double)image.Height / image.Width;
+                                            double aspectRadio = (double)imageToPrint.Height / imageToPrint.Width;
                                             int targetHeight = (int)(80 * aspectRadio * 0.5);
 
                                             //resize
-                                            image.Mutate(ctx => ctx.Resize(80, targetHeight));
+                                            imageToPrint.Mutate(ctx => ctx.Resize(80, targetHeight));
 
                                             var asciiBuilder = new StringBuilder();
 
-                                            image.ProcessPixelRows(accessor =>{
+                                            imageToPrint.ProcessPixelRows(accessor =>{
                                                 for (int y = 0; y < accessor.Height; y++) {
                                                     Span<Rgb24> pixelRow = accessor.GetRowSpan(y);
 
