@@ -4,17 +4,13 @@
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
 
-//hmmmm,what about reading files? like txt or whatever, idk how hard it would be to read those, i suppose then maybe images
-//would prefer it to be same command (just change read to readfile, also the desc of it) and bascially just check if
-//it is a txt or support image file
 
-
-//BIG features: (I need a few of these to get more time)
-//after a little while, another big reformatting/bug fixes sweep
-
-//note that despite how it should be working (as image source is directly there in the correct format) but it just
-//says no images found.
-//the main things that need to be tested are the images (still not working) and the save/readfile, 
+//notes from test run 10/9/2026:
+//for sacefile, say whaat the file is saved as, not just "saved file"
+//but savepage and readfile actually work!
+//change the enter url thing to soemthing else because now there are commands
+//image command still says no images found
+//replit does work very well for creating a shareable link for people to see! I am very happy about this
 
 using SixLabors.ImageSharp;
 using System.IO;
