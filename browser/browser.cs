@@ -620,8 +620,7 @@ public class GetImageLinks {
                 //as per my understanding, gets images from URL
                 using (Stream stream = await client.GetStreamAsync(linkArray[i])) {
                         using (Image image = await Image.LoadAsync(stream)) {
-                            int width = image.Width;
-                            int height = image.Height;
+                            
 
                             //here convert given image to ascii then add to decoded
 
@@ -629,7 +628,8 @@ public class GetImageLinks {
                                             char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
                                             
                                             using Image<Rgb24> image = linkArray[i].CloneAs<Rgb24>();
-
+                                                int width = image.Width;
+                                                int height = image.Height;
                                             //change dimensions
                                             double aspectRadio = (double)image.Height / image.Width;
                                             int targetHeight = (int)(80 * aspectRadio * 0.5);
