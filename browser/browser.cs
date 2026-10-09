@@ -11,23 +11,10 @@
 
 //BIG features: (I need a few of these to get more time)
 //after a little while, another big reformatting/bug fixes sweep
-//at some point I need to find out how to get this to have a working demo somewhere, still planning codehs but that requires a
-//big reform, and depending on how much I need to change, possibly a downgrade to .net 8, if not that maybe just do something
-//like webassembly or replit if that works also
-//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-//okay work on debugging this thing for now, I think trying to make sure it compiles is a first priority in its current state
-//with its current things, also in the "worse" visual studio debugger version the images always jsut didnt detect anything at
-//all so note that despite how it should be working (as image source is directly there in the correct format) but it just
-//says no images found. After that, I think normal browsing and linkscan were working, tabs did work in the cruddy debug test,
-//the main things that need to be tested are the images (still not working) and the save/readfile, which means that this
-//thing does work generally. Would also like to install as few more files/dependencies as I can because otherwise nobody will
-//be able to run this. And with that I am done for tonight, after installing c# devkit as extension here to visual studio
-//ok nvm c# devkit added more, maybe before final release try to trim this down a bit so that it has somewhat less of a mess
-//of files. And now errors show up correctly thankfully in this codespace. I have 58 so oh boy tomorrow is going to be a lot
-//of debugging
 
-//oh boy now time for debugging
+//note that despite how it should be working (as image source is directly there in the correct format) but it just
+//says no images found.
+//the main things that need to be tested are the images (still not working) and the save/readfile, 
 
 using SixLabors.ImageSharp;
 using System.IO;
