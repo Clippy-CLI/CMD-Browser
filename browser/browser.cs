@@ -625,6 +625,7 @@ public class GetImageLinks {
         //ok so stringbuilder is not compiling
         //moved the return to outside the while loop, so now while loop gets links and everything
         //i did just run a sanity check that the src and link sources are structured correctly (at least for wikipedia)
+        //last checked on 10/9/2026 im taking a break
 
 
 
