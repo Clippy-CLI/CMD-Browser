@@ -14,7 +14,7 @@
 
 //I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances) as well as 
 //intro ascii animation, change that
-//then also rename the github repo (again)
+//then also rename the github repo (again) as well as link on the hackclub readme/project github link
 //ideas: Ok you know what lets not name it after an element on the periodic table
 //Name ideas:
 //Gluon browser (extremely light/massless or something) and as far as i can find, not used yet (is a node.js frame)
