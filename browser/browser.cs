@@ -20,8 +20,6 @@
 //Gluon browser (extremely light/massless or something) and as far as i can find, not used yet (is a node.js frame)
 //Somethign with liek security or wahtever if i do for no reason add something like network security or tor
 //just completely random object, very unlikely to be taken (like firefox, safari, edge, chrome)
-//dwarf planet (ceres/eris) maybe because its like, kind of a browser (kind of a planet) but not entirely
-
 
 //replit does work very well for creating a shareable link for people to see! I am very happy about this
 
