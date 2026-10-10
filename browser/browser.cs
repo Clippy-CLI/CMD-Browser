@@ -9,14 +9,7 @@
 //ideas: Ok you know what lets not name it after an element on the periodic table
 //Oh my goodness everything is taken
 
-//notes from test run 10/9/2026:
-//for sacefile, say whaat the file is saved as, not just "saved file"
-//but savepage and readfile actually work!
-//change the enter url thing to soemthing else because now there are commands
-//image command still says no images found
 //replit does work very well for creating a shareable link for people to see! I am very happy about this
-//dotnet run --project browser/browser.csproj note that instead of just dotnet run, it also does say the warning as well
-//as the license issue. Hopefully not too big of a problem but look into that
 
 using SixLabors.ImageSharp;
 using System.IO;
@@ -210,7 +203,7 @@ public class MyProgram {
                         //for now I am calling it savedSite.txt as using like http:// has a lot of characters that 
                         //cannot be used in filenames
                         File.WriteAllText("savedSite.txt", result);
-                        Console.WriteLine("Page saved as txt file");
+                        Console.WriteLine("Page saved as savedSite.txt");
                     }
                 } catch (Exception e) {
                     Console.WriteLine("Error: " + e.Message);
