@@ -199,10 +199,9 @@ public class MyProgram {
                 Console.WriteLine("1. New Game");
                 Console.WriteLine("2. Continue Game");
 
-
-
-
-
+                int money = 0;
+                int turns = 0;
+                //placehodlers for now, will add more later when I have specifics about game
 
                 while(onTitle){
                     string menuOption = Console.ReadLine();
@@ -215,7 +214,8 @@ public class MyProgram {
                             Console.WriteLine("Please enter a code (type cancel to launch new game)");
                             //so in here we are just going to like add a code parser and then re-assign all int
                             //values from above with ones from here
-
+                            //will probably just be like int|int|int|int and each int corresponds to its position
+                            //in order of being defined up above
 
 
 
