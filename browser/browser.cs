@@ -31,6 +31,7 @@ using System.Collections.Generic;
 
 public class MyProgram {
     public static async Task Main(string[] args) {
+        Console.Clear();
         Console.WriteLine("+-----+");
         Console.WriteLine("|--H--|");
         Console.WriteLine("+-----+");
@@ -627,6 +628,11 @@ public class GetImageLinks {
         //i did just run a sanity check that the src and link sources are structured correctly (at least for wikipedia)
         //last checked on 10/9/2026 im taking a break
         //10/10/2026, just realized YOU CAN RUN THE PROGRAM IN GITHUB CODESPACES, HOW DID I NOT REALIZE THIS!?
+        //10/10 refresher even when I add A B C and such to the code instead of adding linebreaks (thus it is not empty)
+        //it still returns an empty string, meaning that decoded is empty, also not that it is returning an http error
+        //as an http error would at least give a made-up error code not just empty
+        //ok this is really confusing because even when I assign decoded a value (A) it still returns empty?
+        //so it is either returning incorrectly somewhere, or I am accidentally overwriting the decoded string
 
 
 
