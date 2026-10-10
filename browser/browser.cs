@@ -605,63 +605,40 @@ public class GetImageLinks {
         }
 
 
-
-
-
-
-
-
-        //moving issue space to down here as decoded is empty
-        //Um well anyway it still returns no images found
-        //ohh i realied the http cleint is still just with html not images, that probably is an issue
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         string decoded = ("");
             for (int i = 0; i < linkArray.Count; i++) {
 
                 
-                //as per my understanding, gets images from URL
-                //i think here, we may need to make a new http client as the previous one is only text
-                //so i guess we make another http client for images?
-                // or is it there a method to jsut, get all images from a site?
-                //actually no, lets not do that as the image links can probably be helpful somewhere else in the future
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+        //moving issue space to down here as decoded is empty
+        //Um well anyway it still returns no images found
+        //ohh i realied the http cleint is still just with html not images, that probably is an issue
 
                     using var imageClient = new HttpClient();
                     imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
