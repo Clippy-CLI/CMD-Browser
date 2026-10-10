@@ -1,0 +1,10 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# Visual Studio user-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
