@@ -538,14 +538,17 @@ public class GetImageLinks {
             //put like, src here
             int start = work.IndexOf("src", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
-
             work = work.Substring(start);
+
+            //src="link.jpg"dwuyagbduyawdh
             int gt = work.IndexOf("\"");
             //first " in the src, so it does get removed
 
             if (gt == -1) break; // malformed
 
+            //gt = 4 in example
             work = work.Substring(gt + 1);
+            ////link.jpg"dwuyagbduyawdh
             //in this stage, would have the first/whatever number url, plus everything after it
 
             //now down here, just instead of adding that <p> </p> to the output and removing it, just add the link to the
@@ -553,8 +556,9 @@ public class GetImageLinks {
 
             //now down here there is only one \" which is the end of the link
             int endP = work.IndexOf("\"", StringComparison.OrdinalIgnoreCase);
+            //endP = index of " of which there is 1
             if (endP == -1) {
-                // take remainder
+                //if error
 
                 break;
             }
@@ -569,6 +573,42 @@ public class GetImageLinks {
             //now to determine if it is an image using the above mentioned file formats
             string linkToAdd = work.Substring(0, endP);
             //just declaring it as a simpler variable to reuse
+
+            ////link.jpg"dwuyagbduyawdh
+            //in this example linToAdd is link.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //im starting to think error is here as the indexing should work well
+            //at least for a basic image source url from what I am finding
+
             string linkToAddExtension = linkToAdd.Length >= 4 ? linkToAdd.Substring(linkToAdd.Length - 4) : linkToAdd;
             //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
             if (linkToAddExtension.Equals(".png")) {
@@ -648,23 +688,19 @@ public class GetImageLinks {
 
 
 
+
         //moving issue space to down here as decoded is empty
         //Um well anyway it still returns no images found
         //ohh i realied the http cleint is still just with html not images, that probably is an issue
         //everything from what I can find the images generally works, so I'm guessing the http whatever is the error
+        //What if I make a simpler image command (not images)
+        //where you jsut put a image source url and we just have this part down here that makes 1 image?
 
                     using var imageClient = new HttpClient();
                     imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
                     imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
-                    //ok just realized something, wikipedia formats the images in a "weird" way to my error may be the
-                    //way we get the url (which would also lead to it detecting no images possibly because it doesnt end
-                    //in the extension), but I will test it with a simpler image
-
-                    //ok it has to be an error with that i tried just a plain image
-                    //which is like an exact image source (if you open in a tab it gives some html and such)
-                    //that just ultimately gives src="imagepath.extension" which should work but it ultimately gives nothing
 
 
                         using (Stream streamImage = await imageClient.GetStreamAsync(linkArray[i])) {
