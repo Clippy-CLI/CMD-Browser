@@ -558,7 +558,7 @@ public class GetImageLinks {
             //THIS IS WHERE WE GET IMAGE LINKS
             //THIS IS THE ONLY PART LEFT TO BASCIALLY CHANGE THE INDEXED LINKS FROM HREF TO SRC ONES
             //put like, src here
-            int start = work.IndexOf("src", StringComparison.OrdinalIgnoreCase);
+            int start = work.IndexOf("src=", StringComparison.OrdinalIgnoreCase);
             if (start == -1) break;
             work = work.Substring(start);
 
@@ -601,40 +601,13 @@ public class GetImageLinks {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //im starting to think error is here as the indexing should work well
             //at least for a basic image source url from what I am finding
 
             string linkToAddExtension = linkToAdd.Length >= 4 ? linkToAdd.Substring(linkToAdd.Length - 4) : linkToAdd;
             //no idea if that math is even correct to get that extension or not, 4 is lazy way to do .png or jpeg, etc
             if (linkToAddExtension.Equals(".png")) {
-                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,4).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
@@ -642,22 +615,21 @@ public class GetImageLinks {
                 }
             //why use || when you can use else if?
             } else if (linkToAddExtension.Equals("jpeg")) {
-                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,4).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
                     linkArray.Add(linkToAdd);
                 }
-                linkArray.Add(linkToAdd);
             } else if (linkToAddExtension.Equals(".jpg")) {
-                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,4).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
                     linkArray.Add(linkToAdd);
                 }
             } else if (linkToAddExtension.Equals("webp")) {
-                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,3).Equals("http")) {
+                if ((linkToAdd.Length < 5)||!linkToAdd.Substring(0,4).Equals("http")) {
                     linkArray.Add(chooseURL + linkToAdd);
                     //probably should get add url then the actual image if it isnt stored right
                 } else {
@@ -672,44 +644,6 @@ public class GetImageLinks {
 
         string decoded = ("");
             for (int i = 0; i < linkArray.Count; i++) {
-
-                
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //moving issue space to down here as decoded is empty
         //Um well anyway it still returns no images found
@@ -740,12 +674,13 @@ public class GetImageLinks {
                                             using Image<Rgb24> imageToPrint = image.CloneAs<Rgb24>();
                                             int width = imageToPrint.Width;
                                             int height = imageToPrint.Height;
+                                            int targetWidth = 80;
                                             //change dimensions
                                             double aspectRadio = (double)imageToPrint.Height / imageToPrint.Width;
-                                            int targetHeight = (int)(80 * aspectRadio * 0.5);
+                                            int targetHeight = (int)(targetWidth * aspectRadio * 0.5);
 
                                             //resize
-                                            imageToPrint.Mutate(ctx => ctx.Resize(80, targetHeight));
+                                            imageToPrint.Mutate(ctx => ctx.Resize(targetWidth, targetHeight));
 
                                             var asciiBuilder = new StringBuilder();
 
@@ -770,7 +705,7 @@ public class GetImageLinks {
                                                 }
                                             });
                             
-                            decoded = (decoded + asciiBuilder);
+                            decoded = (decoded + asciiBuilder.ToString());
                             //add the image which should include \n between lines with appendline
                             decoded = (decoded + "\n");
                             decoded = (decoded + "\n");
