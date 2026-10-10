@@ -3,11 +3,25 @@
 //To do: fix bugs clean code
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
+//solid actual ideas:
+//readImage, reads an image from a directory and displays it (test with the sharkeatingcable thing)
+//some sort of debug/lower level thing with like, connecting to networks or something? or tor just somehow (idk why)
+//or like, accessing a webserver/txt file from local device
+//random privacy policy/tos thing you can read that just says like "This shouldnt collect data as its not coded"
+//and maybe if SixLabors image library needs a license or something
+
+//rewrite the p tag scanning so we actually get more text and stuff and more sites work
+
 //I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances) as well as 
 //intro ascii animation, change that
 //then also rename the github repo (again)
 //ideas: Ok you know what lets not name it after an element on the periodic table
-//Oh my goodness everything is taken
+//Name ideas:
+//Gluon browser (extremely light/massless or something) and as far as i can find, not used yet (is a node.js frame)
+//Somethign with liek security or wahtever if i do for no reason add something like network security or tor
+//just completely random object, very unlikely to be taken (like firefox, safari, edge, chrome)
+//dwarf planet (ceres/eris) maybe because its like, kind of a browser (kind of a planet) but not entirely
+
 
 //replit does work very well for creating a shareable link for people to see! I am very happy about this
 
@@ -174,7 +188,7 @@ public class MyProgram {
                 I want it to be unique
                 lets just wait on this
                 */
-                
+
             }
 
             if (input.StartsWith("savepage", StringComparison.OrdinalIgnoreCase)) {
