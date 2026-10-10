@@ -192,6 +192,9 @@ public class MyProgram {
                 //i mean the code is viewable so its not like I can make a file to make it harder to
                 //reverse engineer. Anyway it will just be like options, total money, things to buy, and then
                 //days passed or something (or like a next turn option) as well as a quit option (quit game)
+                //that is what i have so far, then we need like events or random events that change the game and how
+                //it goes, then it has a completion point where you buy something, try do it in as few turns as 
+                //possible but then again thats manipulateable with the password
 
                 //configure saves, passwords, varibales, up here before in palying loop
                 Boolean onTitle = true;
@@ -199,9 +202,34 @@ public class MyProgram {
                 Console.WriteLine("1. New Game");
                 Console.WriteLine("2. Continue Game");
 
-                int money = 0;
+                long money = 0;
                 int turns = 0;
                 //placehodlers for now, will add more later when I have specifics about game
+
+                int trucks = 0;
+                int trains = 0;
+                int airplanes = 0;
+                //transport vehicles, as you progress you get more money to buy the expensive ones that
+                //sell more items, by default just sell most valuable items (exclduing multipliers)
+                //every turn if too many
+
+                int forests = 0;
+                int oilDrills = 0;
+                int fabs = 0;
+                //number of things you have to produce items to sell
+
+                long wood = 0;
+                long oil = 0;
+                long microchips = 0;
+                //items from those things
+
+                int woodMultiplier = 1;
+                int oilMultiplier = 1;
+                int microchipMultiplier = 1;
+                //multipliers and such because that is what makes it go on forever
+
+                //idk if we need
+
 
                 while(onTitle){
                     string menuOption = Console.ReadLine();
@@ -234,7 +262,7 @@ public class MyProgram {
                 Boolean isPlayingGame = true;
                 while(isPlayingGame) {
                 //note to add a console.Clear(); after every turn/option so that it looks clean
-
+                //as well as a limit on certain items because if the ints get too big then uh oh
 
 
 
