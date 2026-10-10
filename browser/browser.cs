@@ -3,7 +3,8 @@
 //To do: fix bugs clean code
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
-//I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances)
+//I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances) as well as 
+//intro ascii animation, change that
 //then also rename the github repo (again)
 //ideas: Ok you know what lets not name it after an element on the periodic table
 //Oh my goodness everything is taken
