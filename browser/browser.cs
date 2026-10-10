@@ -658,9 +658,13 @@ public class GetImageLinks {
                     imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
-                    //var response = await imageClient.GetAsync(linkArray[i]); i dont think i need this
-                    //recievedData = await response.Content.ReadAsStringAsync(); similarly, this i dont think does anything
-                    //these are just leftover from copying and pasting from another things
+                    //ok just realized something, wikipedia formats the images in a "weird" way to my error may be the
+                    //way we get the url (which would also lead to it detecting no images possibly because it doesnt end
+                    //in the extension), but I will test it with a simpler image
+
+                    //ok it has to be an error with that i tried just a plain image
+                    //which is like an exact image source (if you open in a tab it gives some html and such)
+                    //that just ultimately gives src="imagepath.extension" which should work but it ultimately gives nothing
 
 
                         using (Stream streamImage = await imageClient.GetStreamAsync(linkArray[i])) {
