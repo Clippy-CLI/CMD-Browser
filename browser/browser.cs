@@ -3,7 +3,8 @@
 //To do: fix bugs clean code
 //improve images maybe
 //other ideas to add: more commands, implementations of normal browser features, idk what else
-
+//I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances)
+//then also rename the github repo (again)
 
 //notes from test run 10/9/2026:
 //for sacefile, say whaat the file is saved as, not just "saved file"
