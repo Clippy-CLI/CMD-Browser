@@ -613,6 +613,7 @@ public class GetImageLinks {
 
         //moving issue space to down here as decoded is empty
         //Um well anyway it still returns no images found
+        //ohh i realied the http cleint is still just with html not images, that probably is an issue
 
 
 
@@ -664,7 +665,7 @@ public class GetImageLinks {
 
                     using var imageClient = new HttpClient();
                     imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
-                    imageClient.DefaultRequestHeaders.Add("Accept", "text/html");
+                    imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
                     var response = await imageClient.GetAsync(linkArray[i]);
