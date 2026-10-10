@@ -11,6 +11,8 @@
 //change the enter url thing to soemthing else because now there are commands
 //image command still says no images found
 //replit does work very well for creating a shareable link for people to see! I am very happy about this
+//dotnet run --project browser/browser.csproj note that instead of just dotnet run, it also does say the warning as well
+//as the license issue. Hopefully not too big of a problem but look into that
 
 using SixLabors.ImageSharp;
 using System.IO;
@@ -480,7 +482,8 @@ public class GetImageLinks {
     }
 
     public async Task<string> GetImageLinksFromSiteAsync() {
-        string recievedData = string.Empty;
+        string recievedData = ("");
+        //in other words, this is returning empty somehow
 
         try {
             using var client = new HttpClient();
@@ -518,7 +521,7 @@ public class GetImageLinks {
             }
         }
 
-        // now filter the html into something more readable: extract <p> contents
+
         var recievedNew = new StringBuilder();
         string work = recievedData;
         while (true) {
@@ -534,7 +537,7 @@ public class GetImageLinks {
 
             work = work.Substring(start);
             int gt = work.IndexOf("\"");
-            //first \" in the src, so it does get removed
+            //first " in the src, so it does get removed
 
             if (gt == -1) break; // malformed
 
@@ -597,7 +600,72 @@ public class GetImageLinks {
             }
 
             //part we need to add
-            string decoded = ("");
+            //now is gonna return a whole lot of stuff
+        }
+
+
+
+
+
+
+
+
+        //moving issue space to down here as decoded is empty
+
+
+          //definitely getting to this part as otherwise it wouldnt return as nothing
+        //from also what I'm finding, it does return the correct string, that string just has nothing
+        //it doesnt need to be a stringbuilder...
+
+        //there are 2 possible sources of error. Either images arent made correctly or it truly isnt finding anything
+        //i will run a quick test where I will add like AAA to each image and see if that solves it
+        //okay it still says no images found even If i add like ABC to decoded string meaning that decoded isnt even
+        //being added to correctly
+        //next lets try changing it to a stringbuilder
+        //ok so stringbuilder is not compiling
+        //moved the return to outside the while loop, so now while loop gets links and everything
+        //i did just run a sanity check that the src and link sources are structured correctly (at least for wikipedia)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        string decoded = ("");
             for (int i = 0; i < linkArray.Count; i++) {
 
                 
@@ -670,10 +738,6 @@ public class GetImageLinks {
 
                 
             }
-            //WHY IS DECODED NOT REACHABLE HERE!?
-            return decoded;
-            //now is gonna return a whole lot of stuff
-        }
         return ("");
     }
 }
