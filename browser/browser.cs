@@ -5,6 +5,8 @@
 //other ideas to add: more commands, implementations of normal browser features, idk what else
 //I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances)
 //then also rename the github repo (again)
+//ideas: Ok you know what lets not name it after an element on the periodic table
+//Oh my goodness everything is taken
 
 //notes from test run 10/9/2026:
 //for sacefile, say whaat the file is saved as, not just "saved file"
@@ -610,6 +612,15 @@ public class GetImageLinks {
 
                 
                 
+
+
+
+
+
+
+
+
+
 
 
 
