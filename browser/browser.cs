@@ -141,7 +141,8 @@ public class MyProgram {
                         Console.WriteLine("no images found");
                     }
                     else {
-                        Console.WriteLine(result);
+                        //Console.WriteLine(result);
+                        //ok that stopeed it from duplicating
                     }
                 } catch (Exception e) {
                     Console.WriteLine("Error: " + e.Message);
