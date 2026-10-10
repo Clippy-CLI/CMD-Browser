@@ -128,6 +128,26 @@ public class MyProgram {
                 }
             }
 
+            if (input.StartsWith("image", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
+                //uhh idk i copied this from link command
+                try {
+                    //image is 6 as command is linkscan (space) url
+                    string urlPart = input.Length > 6 ? input.Substring(6).Trim() : string.Empty;
+                    var getter = new GetImageLinks(urlPart, "");
+                    string result = await getter.GetImageLinksFromSiteAsync();
+
+                    if (string.IsNullOrWhiteSpace(result)) {
+                        Console.WriteLine("no images found");
+                    }
+                    else {
+                        Console.WriteLine(result);
+                    }
+                } catch (Exception e) {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+            }
+
             if (input.Equals("tab", StringComparison.OrdinalIgnoreCase)) {
                 handled = true;
                 Console.WriteLine(storeInput + "added as a tab");
@@ -219,6 +239,7 @@ public class MyProgram {
                 Console.WriteLine("tab - opens previous input as a tab");
                 Console.WriteLine("tabs - Shows a list of open tabs");
                 Console.WriteLine("images + (url) - displays images from site as ascii");
+                Console.WriteLine("image + (url) - displays an image from source url");
                 Console.WriteLine("clear - clears the terminal");
                 Console.WriteLine("game - a small, fun, offline game");
                 Console.WriteLine("savepage + (url) - saves the page as a text file");
@@ -761,5 +782,95 @@ public class GetImageLinks {
                 
             }
         return decoded;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+public class GetImage {
+    private readonly string chooseURL;
+    private readonly string recievePart;
+    //somewhere in here, we need an array to store the links
+    //for images though, due to variable scope we could just keep linkArray
+
+    public GetImage(string pickURL, string parameter) {
+        chooseURL = pickURL;
+        recievePart = parameter;
+    }
+
+    public async Task<string> GetImageFromSiteAsync() {
+
+        try {
+                    using var imageClient = new HttpClient();
+                    imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+                    imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
+                    imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
+                    imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
+
+
+                        using (Stream streamImage = await imageClient.GetStreamAsync(chooseURL)) {
+                        using (Image image = await Image.LoadAsync(streamImage)) {
+                            String decoded = ("");
+
+                            //here convert given image to ascii then add to decoded
+
+                                //suppsoed example I found
+                                            char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
+                                            //potentially reverse depending on color or whatever (light vs dark mode)
+                                            //so reverse this if images look very wrong
+                                            
+
+                                            using Image<Rgb24> imageToPrint = image.CloneAs<Rgb24>();
+                                            int width = imageToPrint.Width;
+                                            int height = imageToPrint.Height;
+                                            //change dimensions
+                                            double aspectRadio = (double)imageToPrint.Height / imageToPrint.Width;
+                                            int targetHeight = (int)(80 * aspectRadio * 0.5);
+
+                                            //resize
+                                            imageToPrint.Mutate(ctx => ctx.Resize(80, targetHeight));
+
+                                            var asciiBuilder = new StringBuilder();
+
+                                            imageToPrint.ProcessPixelRows(accessor =>{
+                                                for (int y = 0; y < accessor.Height; y++) {
+                                                    Span<Rgb24> pixelRow = accessor.GetRowSpan(y);
+
+                                                    for (int x = 0; x < pixelRow.Length; x++) {
+                                                        Rgb24 pixel = pixelRow[x];
+
+                                                        // Standard luminance formula to convert RGB to Grayscale
+                                                        double luminance = (0.2126 * pixel.R) + (0.7152 * pixel.G) + (0.0722 * pixel.B);
+
+                                                        // Map the 0-255 luminance value to our 0-(AsciiRamp.Length - 1) index
+                                                        int rampIndex = (int)(luminance / 255.0 * (AsciiRamp.Length - 1));
+
+                                                        asciiBuilder.Append(AsciiRamp[rampIndex]);
+                                                    }
+
+                                                    // Move to the next text row
+                                                    asciiBuilder.AppendLine();
+                                                }
+                                            });
+                            
+                            decoded = (decoded + asciiBuilder);
+                            //big line break between each image
+                                return decoded;
+                        }
+                    }
+
+
+                
+            } catch {
+            return ("Umm something happened");
+        }
     }
 }
