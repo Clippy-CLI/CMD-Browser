@@ -612,28 +612,7 @@ public class GetImageLinks {
 
 
         //moving issue space to down here as decoded is empty
-
-
-          //definitely getting to this part as otherwise it wouldnt return as nothing
-        //from also what I'm finding, it does return the correct string, that string just has nothing
-        //it doesnt need to be a stringbuilder...
-
-        //there are 2 possible sources of error. Either images arent made correctly or it truly isnt finding anything
-        //i will run a quick test where I will add like AAA to each image and see if that solves it
-        //okay it still says no images found even If i add like ABC to decoded string meaning that decoded isnt even
-        //being added to correctly
-        //next lets try changing it to a stringbuilder
-        //ok so stringbuilder is not compiling
-        //moved the return to outside the while loop, so now while loop gets links and everything
-        //i did just run a sanity check that the src and link sources are structured correctly (at least for wikipedia)
-        //last checked on 10/9/2026 im taking a break
-        //10/10/2026, just realized YOU CAN RUN THE PROGRAM IN GITHUB CODESPACES, HOW DID I NOT REALIZE THIS!?
-        //10/10 refresher even when I add A B C and such to the code instead of adding linebreaks (thus it is not empty)
-        //it still returns an empty string, meaning that decoded is empty, also not that it is returning an http error
-        //as an http error would at least give a made-up error code not just empty
-        //ok this is really confusing because even when I assign decoded a value (A) it still returns empty?
-        //so it is either returning incorrectly somewhere, or I am accidentally overwriting the decoded string
-
+        //Um well anyway it still returns no images found
 
 
 
@@ -746,6 +725,6 @@ public class GetImageLinks {
 
                 
             }
-        return ("");
+        return decoded;
     }
 }

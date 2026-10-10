@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("browser")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a94b7ce8ce349c76c8e2ed531c24d002025c8c13")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e4d75b98413a013ba76fd76a52a36a28dea7226")]
 [assembly: System.Reflection.AssemblyProductAttribute("browser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("browser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
