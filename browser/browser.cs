@@ -181,12 +181,104 @@ public class MyProgram {
             if (input.Equals("game", StringComparison.OrdinalIgnoreCase)) {
                 handled = true;
                 //start a game, all handled right here
-                Console.WriteLine("Sorry not implemented yet");
-                /*hmm, what would be a fun game, ideas:
-                I want it to be unique
-                lets just wait on this
-                */
+                Console.WriteLine("Game starting...");
+                //game idea: tycoon or something, simple and allows for lots of continuation
+                //since i want this to be minimal, i will just have it use a password system
+                //i mean the code is viewable so its not like I can make a file to make it harder to
+                //reverse engineer. Anyway it will just be like options, total money, things to buy, and then
+                //days passed or something (or like a next turn option) as well as a quit option (quit game)
 
+                //configure saves, passwords, varibales, up here before in palying loop
+                Boolean onTitle = true;
+                
+                Console.WriteLine("1. New Game");
+                Console.WriteLine("2. Continue Game");
+
+                
+
+
+
+
+                while(onTitle){
+                    string menuOption = Console.ReadLine();
+
+                        if (int.TryParse(menuOption, out int selectedOption)) {
+                            if (selectedOption == 1) {
+                            Console.WriteLine("New game starting...");
+                            onTitle = false;
+                            } else if (selectedOption == 2) {
+                            Console.WriteLine("Please enter a code (type cancel to launch new game)");
+                            //so in here we are just going to like add a code parser and then re-assign all int
+                            //values from above with ones from here
+
+
+
+
+
+
+
+                            } else {
+                                Console.WriteLine("Please enter a valid option");
+                            }
+                        } else {
+                            Console.WriteLine("Please enter a valid option");
+                        }
+
+                }
+
+                Boolean isPlayingGame = true;
+                while(isPlayingGame) {
+                //note to add a console.Clear(); after every turn/option so that it looks clean
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+            
             }
 
             if (input.StartsWith("savepage", StringComparison.OrdinalIgnoreCase)) {
