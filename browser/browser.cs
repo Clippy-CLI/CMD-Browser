@@ -829,12 +829,13 @@ public class GetImage {
                                             using Image<Rgb24> imageToPrint = image.CloneAs<Rgb24>();
                                             int width = imageToPrint.Width;
                                             int height = imageToPrint.Height;
+                                            int terminalWidth = 80;
                                             //change dimensions
                                             double aspectRadio = (double)imageToPrint.Height / imageToPrint.Width;
-                                            int targetHeight = (int)(80 * aspectRadio * 0.5);
+                                            int targetHeight = (int)(terminalWidth * aspectRadio * 0.5);
 
                                             //resize
-                                            imageToPrint.Mutate(ctx => ctx.Resize(80, targetHeight));
+                                            imageToPrint.Mutate(ctx => ctx.Resize(terminalWidth, targetHeight));
 
                                             var asciiBuilder = new StringBuilder();
 
