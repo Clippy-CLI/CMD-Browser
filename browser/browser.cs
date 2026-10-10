@@ -167,12 +167,14 @@ public class MyProgram {
             }
 
             if (input.Equals("game", StringComparison.OrdinalIgnoreCase)) {
+                handled = true;
                 //start a game, all handled right here
                 Console.WriteLine("Sorry not implemented yet");
                 /*hmm, what would be a fun game, ideas:
                 I want it to be unique
                 lets just wait on this
                 */
+                
             }
 
             if (input.StartsWith("savepage", StringComparison.OrdinalIgnoreCase)) {
