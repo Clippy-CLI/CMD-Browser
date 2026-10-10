@@ -49,7 +49,7 @@ public class MyProgram {
         List<String> tabArray = new List<String>();
         //create var to store the input for later
         while (true) {
-            Console.Write("Enter URL: ");
+            Console.Write(">");
             string input = Console.ReadLine();
             bool handled = false;
 
