@@ -23,6 +23,11 @@
 
 //replit does work very well for creating a shareable link for people to see! I am very happy about this
 
+//hackclub publishing notes:
+//improve readme/about, as well as you have to link to hackclub/stardance event for it to count
+//advertise the included game, because the game itself is an entire reason to sue the browser
+//even if you dont use any of the browser features
+
 using SixLabors.ImageSharp;
 using System.IO;
 using SixLabors.ImageSharp.Processing;
@@ -194,7 +199,7 @@ public class MyProgram {
                 Console.WriteLine("1. New Game");
                 Console.WriteLine("2. Continue Game");
 
-                
+
 
 
 
