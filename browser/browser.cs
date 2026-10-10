@@ -134,8 +134,8 @@ public class MyProgram {
                 try {
                     //image is 6 as command is linkscan (space) url
                     string urlPart = input.Length > 6 ? input.Substring(6).Trim() : string.Empty;
-                    var getter = new GetImageLinks(urlPart, "");
-                    string result = await getter.GetImageLinksFromSiteAsync();
+                    var getter = new GetImage(urlPart, "");
+                    string result = await getter.GetImageFromSiteAsync();
 
                     if (string.IsNullOrWhiteSpace(result)) {
                         Console.WriteLine("no images found");
@@ -808,15 +808,12 @@ public class GetImage {
     }
 
     public async Task<string> GetImageFromSiteAsync() {
-
         try {
                     using var imageClient = new HttpClient();
                     imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
                     imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
-
-
                         using (Stream streamImage = await imageClient.GetStreamAsync(chooseURL)) {
                         using (Image image = await Image.LoadAsync(streamImage)) {
                             String decoded = ("");
@@ -861,8 +858,8 @@ public class GetImage {
                                                     asciiBuilder.AppendLine();
                                                 }
                                             });
-                            
-                            decoded = (decoded + asciiBuilder);
+                            Console.WriteLine(asciiBuilder);
+                            decoded = (decoded + asciiBuilder.ToString());
                             //big line break between each image
                                 return decoded;
                         }
