@@ -484,7 +484,6 @@ public class GetImageLinks {
 
     public async Task<string> GetImageLinksFromSiteAsync() {
         string recievedData = ("");
-        //in other words, this is returning empty somehow
 
         try {
             using var client = new HttpClient();
@@ -634,20 +633,23 @@ public class GetImageLinks {
 
 
 
-                
+
 
         //moving issue space to down here as decoded is empty
         //Um well anyway it still returns no images found
         //ohh i realied the http cleint is still just with html not images, that probably is an issue
+        //everything from what I can find the images generally works, so I'm guessing the http whatever is the error
 
                     using var imageClient = new HttpClient();
                     imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
                     imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
-                    var response = await imageClient.GetAsync(linkArray[i]);
+                    //var response = await imageClient.GetAsync(linkArray[i]); i dont think i need this
+                    //recievedData = await response.Content.ReadAsStringAsync(); similarly, this i dont think does anything
+                    //these are just leftover from copying and pasting from another things
 
-                    recievedData = await response.Content.ReadAsStringAsync();
+
                         using (Stream streamImage = await imageClient.GetStreamAsync(linkArray[i])) {
                         using (Image image = await Image.LoadAsync(streamImage)) {
                             
@@ -656,6 +658,8 @@ public class GetImageLinks {
 
                                 //suppsoed example I found
                                             char[] AsciiRamp = { ' ', '.', ':', '-', '=', '+', '*', '%', '@', '#' };
+                                            //potentially reverse depending on color or whatever (light vs dark mode)
+                                            //so reverse this if images look very wrong
                                             
 
                                             using Image<Rgb24> imageToPrint = image.CloneAs<Rgb24>();
