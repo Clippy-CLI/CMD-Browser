@@ -12,14 +12,7 @@
 
 //rewrite the p tag scanning so we actually get more text and stuff and more sites work
 
-//I HAVE TO RENAME IT AGAIN BECAUSE HYDROGEN BROWSER IS ALREADY A THING (ctrl f to find all instances) as well as 
-//intro ascii animation, change that
-//then also rename the github repo (again) as well as link on the hackclub readme/project github link
-//ideas: Ok you know what lets not name it after an element on the periodic table
-//Name ideas:
-//Gluon browser (extremely light/massless or something) and as far as i can find, not used yet (is a node.js frame)
-//Somethign with liek security or wahtever if i do for no reason add something like network security or tor
-//just completely random object, very unlikely to be taken (like firefox, safari, edge, chrome)
+
 
 //replit does work very well for creating a shareable link for people to see! I am very happy about this
 
@@ -46,11 +39,14 @@ using System.Collections.Generic;
 public class MyProgram {
     public static async Task Main(string[] args) {
         Console.Clear();
-        Console.WriteLine("+-----+");
-        Console.WriteLine("|--H--|");
-        Console.WriteLine("+-----+");
+        Console.WriteLine("    #######    ");
+        Console.WriteLine("  ##       ##  ");
+        Console.WriteLine(" ##  O---O  ## ");
+        Console.WriteLine(" ##   \\ /   ## ");
+        Console.WriteLine("  ##   O   ##  ");
+        Console.WriteLine("    #######    ");
         //neat image for now
-        Console.WriteLine("Welcome to Hydrogen browser!");
+        Console.WriteLine("Welcome to Gluon browser!");
         Console.WriteLine("Type help for a list of commands");
         Console.WriteLine("Type exit to quit");
         Console.WriteLine("Made by Clippy-CLI");
@@ -424,7 +420,7 @@ public class GetData {
 
         try {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+            client.DefaultRequestHeaders.Add("User-Agent", "Gluon-Browser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -536,7 +532,7 @@ public class GetLinks {
 
         try {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+            client.DefaultRequestHeaders.Add("User-Agent", "Gluon-Browser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -645,7 +641,7 @@ public class GetImageLinks {
 
         try {
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+            client.DefaultRequestHeaders.Add("User-Agent", "Gluon-Browser");
             client.DefaultRequestHeaders.Add("Accept", "text/html");
             client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
             client.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -785,7 +781,7 @@ public class GetImageLinks {
         //where you jsut put a image source url and we just have this part down here that makes 1 image?
 
                     using var imageClient = new HttpClient();
-                    imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+                    imageClient.DefaultRequestHeaders.Add("User-Agent", "Gluon-Browser");
                     imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -878,7 +874,7 @@ public class GetImage {
     public async Task<string> GetImageFromSiteAsync() {
         try {
                     using var imageClient = new HttpClient();
-                    imageClient.DefaultRequestHeaders.Add("User-Agent", "Hydrogen-Browser");
+                    imageClient.DefaultRequestHeaders.Add("User-Agent", "Gluon-Browser");
                     imageClient.DefaultRequestHeaders.Accept.ParseAdd("image/*");
                     imageClient.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
                     imageClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
